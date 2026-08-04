@@ -16,9 +16,14 @@
 		"test:unit": "wp-scripts test-unit-js"
 	},
 	"dependencies": {
+		"@wordpress/api-fetch": "latest",
 		"@wordpress/block-editor": "latest",
 		"@wordpress/blocks": "latest",
-		"@wordpress/i18n": "latest"
+		"@wordpress/components": "latest",
+		"@wordpress/element": "latest",
+		"@wordpress/hooks": "latest",
+		"@wordpress/i18n": "latest",
+		"clsx": "latest"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^34.0.0"

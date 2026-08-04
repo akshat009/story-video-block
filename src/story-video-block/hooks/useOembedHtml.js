@@ -11,7 +11,7 @@ import { addAutoplay } from '../utils';
  *
  * @param {string} videoUrl      The raw video URL.
  * @param {string} videoProvider Detected provider ('file' is skipped — it
- *                                doesn't use oEmbed, just a <video> tag).
+ *                               doesn't use oEmbed, just a <video> tag).
  * @return {string} The (possibly empty, while loading/on error) embed HTML.
  */
 export default function useOembedHtml( videoUrl, videoProvider ) {

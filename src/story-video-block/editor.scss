@@ -85,7 +85,7 @@
 	}
 
 	// Minimal: no circle background, just a plain (larger) icon.
-	.story-video-block__facade[data-play-style='minimal'] .story-video-block__play-btn {
+	.story-video-block__facade[data-play-style="minimal"] .story-video-block__play-btn {
 		width: 56px;
 		height: 56px;
 		padding: 0;
@@ -95,7 +95,7 @@
 	}
 
 	// Branded: larger, filled with the block's highlight/accent color.
-	.story-video-block__facade[data-play-style='branded'] .story-video-block__play-btn {
+	.story-video-block__facade[data-play-style="branded"] .story-video-block__play-btn {
 		width: 80px;
 		height: 80px;
 		padding: 22px;

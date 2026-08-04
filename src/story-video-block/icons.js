@@ -80,9 +80,12 @@ export const PLAY_ICONS = applyFilters( 'storyVideoBlock.playIcons', {
 	),
 } );
 
-export const PLAY_ICON_OPTIONS = applyFilters( 'storyVideoBlock.playIconOptions', [
-	{ label: __( 'Triangle', 'story-video-block' ), value: 'triangle' },
-	{ label: __( 'Circle outline', 'story-video-block' ), value: 'circle' },
-	{ label: __( 'Rounded', 'story-video-block' ), value: 'rounded' },
-	{ label: __( 'Solid circle', 'story-video-block' ), value: 'solid' },
-] );
+export const PLAY_ICON_OPTIONS = applyFilters(
+	'storyVideoBlock.playIconOptions',
+	[
+		{ label: __( 'Triangle', 'story-video-block' ), value: 'triangle' },
+		{ label: __( 'Circle outline', 'story-video-block' ), value: 'circle' },
+		{ label: __( 'Rounded', 'story-video-block' ), value: 'rounded' },
+		{ label: __( 'Solid circle', 'story-video-block' ), value: 'solid' },
+	]
+);

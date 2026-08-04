@@ -3,7 +3,10 @@ import { parseVideoUrl, getAutoThumbnail, addAutoplay } from './utils';
 describe( 'parseVideoUrl', () => {
 	it( 'returns empty provider/id for an empty or missing URL', () => {
 		expect( parseVideoUrl( '' ) ).toEqual( { provider: '', id: '' } );
-		expect( parseVideoUrl( undefined ) ).toEqual( { provider: '', id: '' } );
+		expect( parseVideoUrl( undefined ) ).toEqual( {
+			provider: '',
+			id: '',
+		} );
 	} );
 
 	it( 'returns empty provider/id for an unrecognised URL', () => {
@@ -57,9 +60,9 @@ describe( 'parseVideoUrl', () => {
 	} );
 
 	it( 'detects Twitch VOD URLs', () => {
-		expect( parseVideoUrl( 'https://www.twitch.tv/videos/123456789' ) ).toEqual(
-			{ provider: 'twitch', id: '123456789' }
-		);
+		expect(
+			parseVideoUrl( 'https://www.twitch.tv/videos/123456789' )
+		).toEqual( { provider: 'twitch', id: '123456789' } );
 	} );
 
 	it( 'detects Wistia URLs', () => {
@@ -81,16 +84,19 @@ describe( 'parseVideoUrl', () => {
 	} );
 
 	it( 'detects VideoPress URLs', () => {
-		expect(
-			parseVideoUrl( 'https://videopress.com/v/abc123XY' )
-		).toEqual( { provider: 'videopress', id: 'abc123XY' } );
+		expect( parseVideoUrl( 'https://videopress.com/v/abc123XY' ) ).toEqual(
+			{ provider: 'videopress', id: 'abc123XY' }
+		);
 	} );
 
 	it.each( [ 'mp4', 'webm', 'ogg', 'mov' ] )(
 		'detects self-hosted .%s files',
 		( ext ) => {
 			const url = `https://example.com/videos/clip.${ ext }`;
-			expect( parseVideoUrl( url ) ).toEqual( { provider: 'file', id: url } );
+			expect( parseVideoUrl( url ) ).toEqual( {
+				provider: 'file',
+				id: url,
+			} );
 		}
 	);
 
@@ -123,7 +129,14 @@ describe( 'getAutoThumbnail', () => {
 		);
 	} );
 
-	it.each( [ 'vimeo', 'facebook', 'twitch', 'wistia', 'tiktok', 'videopress' ] )(
+	it.each( [
+		'vimeo',
+		'facebook',
+		'twitch',
+		'wistia',
+		'tiktok',
+		'videopress',
+	] )(
 		'returns empty string for %s (no predictable thumbnail URL)',
 		( provider ) => {
 			expect( getAutoThumbnail( provider, 'abc123' ) ).toBe( '' );
@@ -138,7 +151,8 @@ describe( 'addAutoplay', () => {
 	} );
 
 	it( 'adds ?autoplay=1 when the iframe src has no query string', () => {
-		const html = '<iframe src="https://www.youtube.com/embed/abc123"></iframe>';
+		const html =
+			'<iframe src="https://www.youtube.com/embed/abc123"></iframe>';
 		expect( addAutoplay( html ) ).toBe(
 			'<iframe src="https://www.youtube.com/embed/abc123?autoplay=1"></iframe>'
 		);

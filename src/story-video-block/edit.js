@@ -47,6 +47,9 @@ import EmbedIframe from './components/EmbedIframe';
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
+ * @param {Object}   props               Block edit props.
+ * @param {Object}   props.attributes    Current block attributes.
+ * @param {Function} props.setAttributes Updates block attributes.
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
  * @return {Element} Element to render.
@@ -58,7 +61,6 @@ export default function Edit( { attributes, setAttributes } ) {
 		videoId,
 		posterUrl,
 		posterId,
-		posterAlt,
 		heading,
 		headingTag,
 		description,
@@ -103,7 +105,11 @@ export default function Edit( { attributes, setAttributes } ) {
 	};
 
 	const onRemoveTranscript = () => {
-		setAttributes( { transcriptUrl: '', transcriptName: '', transcriptSize: '' } );
+		setAttributes( {
+			transcriptUrl: '',
+			transcriptName: '',
+			transcriptSize: '',
+		} );
 	};
 
 	const autoThumbnail = getAutoThumbnail( videoProvider, videoId );
@@ -117,21 +123,29 @@ export default function Edit( { attributes, setAttributes } ) {
 		setIsPlaying( false );
 	}, [ videoUrl ] );
 
-	const showVideo = videoUrl && videoProvider !== 'file' && ( isPlaying || ! effectivePoster );
+	const showVideo =
+		videoUrl &&
+		videoProvider !== 'file' &&
+		( isPlaying || ! effectivePoster );
 	const showFacade =
 		videoUrl && videoProvider !== 'file' && ! isPlaying && effectivePoster;
 
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Video', 'story-video-block' ) } initialOpen>
+				<PanelBody
+					title={ __( 'Video', 'story-video-block' ) }
+					initialOpen
+				>
 					<TextControl
 						label={ __( 'Video URL', 'story-video-block' ) }
 						value={ videoUrl }
 						onChange={ onChangeVideoUrl }
 						help={
 							videoProvider
-								? __( 'Detected:', 'story-video-block' ) + ' ' + videoProvider
+								? __( 'Detected:', 'story-video-block' ) +
+								  ' ' +
+								  videoProvider
 								: __(
 										'YouTube, Vimeo, or a direct video file URL.',
 										'story-video-block'
@@ -140,7 +154,10 @@ export default function Edit( { attributes, setAttributes } ) {
 						type="url"
 					/>
 
-					<BaseControl label={ __( 'Poster image', 'story-video-block' ) }>
+					<BaseControl
+						id="story-video-block-poster-image"
+						label={ __( 'Poster image', 'story-video-block' ) }
+					>
 						{ effectivePoster && (
 							<img
 								src={ effectivePoster }
@@ -156,10 +173,19 @@ export default function Edit( { attributes, setAttributes } ) {
 										allowedTypes={ [ 'image' ] }
 										value={ posterId }
 										render={ ( { open } ) => (
-											<Button variant="secondary" onClick={ open }>
+											<Button
+												variant="secondary"
+												onClick={ open }
+											>
 												{ posterUrl
-													? __( 'Replace poster', 'story-video-block' )
-													: __( 'Select poster image', 'story-video-block' ) }
+													? __(
+															'Replace poster',
+															'story-video-block'
+													  )
+													: __(
+															'Select poster image',
+															'story-video-block'
+													  ) }
 											</Button>
 										) }
 									/>
@@ -198,11 +224,22 @@ export default function Edit( { attributes, setAttributes } ) {
 						label={ __( 'Play button style', 'story-video-block' ) }
 						value={ playButtonStyle }
 						options={ [
-							{ label: __( 'Default', 'story-video-block' ), value: 'default' },
-							{ label: __( 'Minimal', 'story-video-block' ), value: 'minimal' },
-							{ label: __( 'Branded', 'story-video-block' ), value: 'branded' },
+							{
+								label: __( 'Default', 'story-video-block' ),
+								value: 'default',
+							},
+							{
+								label: __( 'Minimal', 'story-video-block' ),
+								value: 'minimal',
+							},
+							{
+								label: __( 'Branded', 'story-video-block' ),
+								value: 'branded',
+							},
 						] }
-						onChange={ ( v ) => setAttributes( { playButtonStyle: v } ) }
+						onChange={ ( v ) =>
+							setAttributes( { playButtonStyle: v } )
+						}
 					/>
 					<SelectControl
 						label={ __( 'Play button icon', 'story-video-block' ) }
@@ -212,7 +249,10 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 
-				<PanelBody title={ __( 'Layout', 'story-video-block' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'Layout', 'story-video-block' ) }
+					initialOpen={ false }
+				>
 					<SelectControl
 						label={ __( 'Media position', 'story-video-block' ) }
 						value={ videoPosition }
@@ -228,9 +268,15 @@ export default function Edit( { attributes, setAttributes } ) {
 						label={ __( 'Card style', 'story-video-block' ) }
 						value={ cardStyle }
 						options={ [
-							{ label: __( 'Standard', 'story-video-block' ), value: 'standard' },
 							{
-								label: __( 'Overlapping media', 'story-video-block' ),
+								label: __( 'Standard', 'story-video-block' ),
+								value: 'standard',
+							},
+							{
+								label: __(
+									'Overlapping media',
+									'story-video-block'
+								),
 								value: 'overlap',
 							},
 						] }
@@ -238,11 +284,16 @@ export default function Edit( { attributes, setAttributes } ) {
 							'Overlapping media makes the video/poster poke out above and below the card.',
 							'story-video-block'
 						) }
-						onChange={ ( newStyle ) => setAttributes( { cardStyle: newStyle } ) }
+						onChange={ ( newStyle ) =>
+							setAttributes( { cardStyle: newStyle } )
+						}
 					/>
 				</PanelBody>
 
-				<PanelBody title={ __( 'Content', 'story-video-block' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'Content', 'story-video-block' ) }
+					initialOpen={ false }
+				>
 					<SelectControl
 						label={ __( 'Heading tag', 'story-video-block' ) }
 						value={ headingTag }
@@ -251,10 +302,15 @@ export default function Edit( { attributes, setAttributes } ) {
 							{ label: 'H3', value: 'h3' },
 							{ label: 'H4', value: 'h4' },
 						] }
-						onChange={ ( newTag ) => setAttributes( { headingTag: newTag } ) }
+						onChange={ ( newTag ) =>
+							setAttributes( { headingTag: newTag } )
+						}
 					/>
 
-					<BaseControl label={ __( 'Transcript file', 'story-video-block' ) }>
+					<BaseControl
+						id="story-video-block-transcript-file"
+						label={ __( 'Transcript file', 'story-video-block' ) }
+					>
 						<MediaUploadCheck>
 							<MediaUpload
 								onSelect={ onSelectTranscript }
@@ -265,10 +321,19 @@ export default function Edit( { attributes, setAttributes } ) {
 									'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 								] }
 								render={ ( { open } ) => (
-									<Button variant="secondary" onClick={ open }>
+									<Button
+										variant="secondary"
+										onClick={ open }
+									>
 										{ transcriptUrl
-											? __( 'Replace transcript', 'story-video-block' )
-											: __( 'Upload transcript', 'story-video-block' ) }
+											? __(
+													'Replace transcript',
+													'story-video-block'
+											  )
+											: __(
+													'Upload transcript',
+													'story-video-block'
+											  ) }
 									</Button>
 								) }
 							/>
@@ -308,7 +373,10 @@ export default function Edit( { attributes, setAttributes } ) {
 						) }
 					</p>
 					<ToggleControl
-						label={ __( 'Show Quotation Marks', 'story-video-block' ) }
+						label={ __(
+							'Show Quotation Marks',
+							'story-video-block'
+						) }
 						checked={ showQuotationMarks }
 						onChange={ ( newValue ) =>
 							setAttributes( { showQuotationMarks: newValue } )
@@ -322,12 +390,17 @@ export default function Edit( { attributes, setAttributes } ) {
 					colorSettings={ [
 						{
 							value: backgroundColor,
-							onChange: ( v ) => setAttributes( { backgroundColor: v } ),
-							label: __( 'Background color', 'story-video-block' ),
+							onChange: ( v ) =>
+								setAttributes( { backgroundColor: v } ),
+							label: __(
+								'Background color',
+								'story-video-block'
+							),
 						},
 						{
 							value: textColor,
-							onChange: ( v ) => setAttributes( { textColor: v } ),
+							onChange: ( v ) =>
+								setAttributes( { textColor: v } ),
 							label: __( 'Text color', 'story-video-block' ),
 						},
 					] }
@@ -348,12 +421,18 @@ export default function Edit( { attributes, setAttributes } ) {
 			>
 				<div className="story-video-block__media">
 					{ videoUrl && videoProvider === 'file' && (
-						<video className="story-video-block__video" src={ videoUrl } controls />
+						<video
+							className="story-video-block__video"
+							src={ videoUrl }
+							controls
+						/>
 					) }
 					{ showVideo && embedHtml && (
 						<EmbedIframe
 							html={ embedHtml }
-							title={ heading || __( 'Video', 'story-video-block' ) }
+							title={
+								heading || __( 'Video', 'story-video-block' )
+							}
 						/>
 					) }
 					{ showVideo && ! embedHtml && (
@@ -369,19 +448,28 @@ export default function Edit( { attributes, setAttributes } ) {
 							onClick={ () => setIsPlaying( true ) }
 							aria-label={
 								heading
-									? __( 'Play video:', 'story-video-block' ) + ' ' + heading
+									? __( 'Play video:', 'story-video-block' ) +
+									  ' ' +
+									  heading
 									: __( 'Play video', 'story-video-block' )
 							}
 						>
 							<img src={ effectivePoster } alt="" />
-							<span className="story-video-block__play-btn" aria-hidden="true">
-								{ PLAY_ICONS[ playIcon ] || PLAY_ICONS.triangle }
+							<span
+								className="story-video-block__play-btn"
+								aria-hidden="true"
+							>
+								{ PLAY_ICONS[ playIcon ] ||
+									PLAY_ICONS.triangle }
 							</span>
 						</button>
 					) }
 					{ ! videoUrl && (
 						<div className="story-video-block__media-placeholder">
-							{ __( 'Add a video URL from the sidebar', 'story-video-block' ) }
+							{ __(
+								'Add a video URL from the sidebar',
+								'story-video-block'
+							) }
 						</div>
 					) }
 				</div>
@@ -391,7 +479,9 @@ export default function Edit( { attributes, setAttributes } ) {
 						tagName={ headingTag || 'h2' }
 						className="story-video-block__heading"
 						value={ heading }
-						onChange={ ( newHeading ) => setAttributes( { heading: newHeading } ) }
+						onChange={ ( newHeading ) =>
+							setAttributes( { heading: newHeading } )
+						}
 						placeholder={ __( 'Heading…', 'story-video-block' ) }
 					/>
 					<RichText
@@ -401,7 +491,10 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ ( newDescription ) =>
 							setAttributes( { description: newDescription } )
 						}
-						placeholder={ __( 'Sub text / description…', 'story-video-block' ) }
+						placeholder={ __(
+							'Sub text / description…',
+							'story-video-block'
+						) }
 					/>
 					{ transcriptUrl && (
 						<a
@@ -413,7 +506,10 @@ export default function Edit( { attributes, setAttributes } ) {
 							{ __( 'Download transcript', 'story-video-block' ) }
 							{ transcriptName ? ` – ${ transcriptName }` : '' }
 							<span className="screen-reader-text">
-								{ __( '(opens in a new tab)', 'story-video-block' ) }
+								{ __(
+									'(opens in a new tab)',
+									'story-video-block'
+								) }
 							</span>
 						</a>
 					) }

@@ -117,6 +117,9 @@ export function addAutoplay( html ) {
 	return html.replace(
 		/(<iframe[^>]*\bsrc="[^"]*)(")/,
 		( match, srcStart, quote ) =>
-			srcStart + ( srcStart.includes( '?' ) ? '&' : '?' ) + 'autoplay=1' + quote
+			srcStart +
+			( srcStart.includes( '?' ) ? '&' : '?' ) +
+			'autoplay=1' +
+			quote
 	);
 }
