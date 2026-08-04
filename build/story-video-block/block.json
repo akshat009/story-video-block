@@ -1,0 +1,110 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "create-block/story-video-block",
+  "version": "0.1.0",
+  "title": "Story Video Block",
+  "category": "media",
+  "icon": "video-alt3",
+  "description": "A video and text section with lazy-loaded video embeds.",
+  "keywords": [
+    "video",
+    "youtube",
+    "story",
+    "testimonial"
+  ],
+  "example": {},
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    },
+    "videoUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "videoProvider": {
+      "type": "string",
+      "default": "youtube"
+    },
+    "videoId": {
+      "type": "string",
+      "default": ""
+    },
+    "posterUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "posterId": {
+      "type": "number"
+    },
+    "posterAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "heading": {
+      "type": "string",
+      "default": ""
+    },
+    "headingTag": {
+      "type": "string",
+      "default": "h2"
+    },
+    "description": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "textColor": {
+      "type": "string",
+      "default": ""
+    },
+    "transcriptUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "transcriptName": {
+      "type": "string",
+      "default": ""
+    },
+    "transcriptSize": {
+      "type": "string",
+      "default": ""
+    },
+    "playButtonStyle": {
+      "type": "string",
+      "default": "default"
+    },
+    "playIcon": {
+      "type": "string",
+      "default": "triangle"
+    },
+    "videoPosition": {
+      "type": "string",
+      "default": "right"
+    },
+    "showQuotationMarks": {
+      "type": "boolean",
+      "default": false
+    },
+    "cardStyle": {
+      "type": "string",
+      "default": "standard"
+    }
+  },
+  "textdomain": "story-video-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}
