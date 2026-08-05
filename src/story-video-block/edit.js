@@ -53,6 +53,7 @@ import VideoFacade from './components/VideoFacade';
  * @param {Object}   props               Block edit props.
  * @param {Object}   props.attributes    Current block attributes.
  * @param {Function} props.setAttributes Updates block attributes.
+ * @param {string}   props.clientId      Unique id of this block instance.
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
  * @return {Element} Element to render.
@@ -165,6 +166,23 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	const showVideo = videoUrl && videoProvider !== 'file' && isPlaying;
 	const showFacade = videoUrl && videoProvider !== 'file' && ! isPlaying;
 
+	let videoUrlHelp;
+	if ( ! videoUrl ) {
+		videoUrlHelp = (
+			<span style={ { color: '#cc1818' } }>
+				{ __( 'Required.', 'story-video-block' ) }
+			</span>
+		);
+	} else if ( videoProvider ) {
+		videoUrlHelp =
+			__( 'Detected:', 'story-video-block' ) + ' ' + videoProvider;
+	} else {
+		videoUrlHelp = __(
+			'YouTube, Vimeo, or a direct video file URL.',
+			'story-video-block'
+		);
+	}
+
 	return (
 		<>
 			<InspectorControls>
@@ -173,30 +191,10 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					initialOpen
 				>
 					<TextControl
-						label={
-							__( 'Video URL', 'story-video-block' ) + ' *'
-						}
+						label={ __( 'Video URL', 'story-video-block' ) + ' *' }
 						value={ videoUrl }
 						onChange={ onChangeVideoUrl }
-						help={
-							! videoUrl ? (
-								<span style={ { color: '#cc1818' } }>
-									{ __(
-										'Required.',
-										'story-video-block'
-									) }
-								</span>
-							) : videoProvider ? (
-								__( 'Detected:', 'story-video-block' ) +
-								' ' +
-								videoProvider
-							) : (
-								__(
-									'YouTube, Vimeo, or a direct video file URL.',
-									'story-video-block'
-								)
-							)
-						}
+						help={ videoUrlHelp }
 						type="url"
 					/>
 

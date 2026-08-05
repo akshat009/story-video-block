@@ -27,5 +27,8 @@ vendor/
 # Output of `wp-scripts plugin-zip`
 *.zip
 
+# Stray source maps (shouldn't be emitted by a production build, but just in case)
+build/**/*.map
+
 # dotenv environment variables file
 .env

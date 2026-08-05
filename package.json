@@ -1,8 +1,8 @@
 {
 	"name": "story-video-block",
 	"version": "0.1.0",
-	"description": "Example block scaffolded with Create Block tool.",
-	"author": "The WordPress Contributors",
+	"description": "A video + text block for testimonial and story-style sections, with a click-to-play embed built on the Interactivity API.",
+	"author": "Akshat Saxena",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {
@@ -20,6 +20,7 @@
 		"@wordpress/block-editor": "latest",
 		"@wordpress/blocks": "latest",
 		"@wordpress/components": "latest",
+		"@wordpress/data": "latest",
 		"@wordpress/element": "latest",
 		"@wordpress/hooks": "latest",
 		"@wordpress/i18n": "latest",
