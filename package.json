@@ -13,7 +13,8 @@
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
 		"start": "cross-env WP_EXPERIMENTAL_MODULES=true wp-scripts start --blocks-manifest",
-		"test:unit": "wp-scripts test-unit-js"
+		"test:unit": "wp-scripts test-unit-js",
+		"prepare": "husky"
 	},
 	"dependencies": {
 		"@wordpress/api-fetch": "latest",
@@ -29,6 +30,7 @@
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^34.0.0",
-		"cross-env": "^7.0.3"
+		"cross-env": "^7.0.3",
+		"husky": "^9.1.7"
 	}
 }
