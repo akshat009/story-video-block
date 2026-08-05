@@ -1,1 +1,1 @@
-console.log("Hello World! (from create-block-story-video-block block)");
+import{getContext as e,store as t}from"@wordpress/interactivity";t("create-block/story-video-block",{state:{get isPlaying(){return e().isPlaying},get isNotPlaying(){return!e().isPlaying}},actions:{play(t){const i=e();i.isPlaying||i.embedUrl&&(t.preventDefault(),i.videoSrc=i.embedUrl,i.isPlaying=!0)}}});

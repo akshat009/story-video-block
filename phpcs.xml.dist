@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruleset name="Story Video Block">
+	<description>Coding standards for the Story Video Block plugin.</description>
+
+	<!-- What to scan. -->
+	<file>.</file>
+	<exclude-pattern>/build/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/src/*</exclude-pattern>
+
+	<arg value="sp"/>
+	<arg name="basepath" value="./"/>
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+	<arg name="parallel" value="8"/>
+
+	<!-- Rules: WordPress Coding Standards. -->
+	<rule ref="WordPress">
+		<!-- This plugin's text domain intentionally matches its slug; short arrays and yoda conditions are house style choices, not required for WP.org. -->
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+	</rule>
+
+	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Docs"/>
+
+	<!-- Verify that everything works fine when the minimum supported WP version is used. -->
+	<config name="minimum_supported_wp_version" value="6.8"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="story-video-block"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="story_video_block"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Check for PHP cross-version compatibility down to the plugin's minimum supported PHP version. -->
+	<config name="testVersion" value="7.4-"/>
+	<rule ref="PHPCompatibilityWP"/>
+</ruleset>

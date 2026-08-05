@@ -70,10 +70,6 @@ return array(
 				'type' => 'string',
 				'default' => ''
 			),
-			'textColor' => array(
-				'type' => 'string',
-				'default' => ''
-			),
 			'transcriptUrl' => array(
 				'type' => 'string',
 				'default' => ''
@@ -105,12 +101,35 @@ return array(
 			'cardStyle' => array(
 				'type' => 'string',
 				'default' => 'standard'
+			),
+			'quoteText' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'authorName' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'authorTitle' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'avatarUrl' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'avatarId' => array(
+				'type' => 'number'
+			),
+			'avatarAlt' => array(
+				'type' => 'string',
+				'default' => ''
 			)
 		),
 		'textdomain' => 'story-video-block',
 		'editorScript' => 'file:./index.js',
 		'editorStyle' => 'file:./index.css',
 		'style' => 'file:./style-index.css',
-		'viewScript' => 'file:./view.js'
+		'viewScriptModule' => 'file:./view.js'
 	)
 );

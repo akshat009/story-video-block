@@ -25,7 +25,6 @@
 		"headingTag": { "type": "string", "default": "h2" },
 		"description": { "type": "string", "default": "" },
 		"backgroundColor": { "type": "string", "default": "" },
-		"textColor": { "type": "string", "default": "" },
 		"transcriptUrl": { "type": "string", "default": "" },
 		"transcriptName": { "type": "string", "default": "" },
 		"transcriptSize": { "type": "string", "default": "" },
@@ -33,11 +32,17 @@
 		"playIcon": { "type": "string", "default": "triangle" },
 		"videoPosition": { "type": "string", "default": "right" },
 		"showQuotationMarks": { "type": "boolean", "default": false },
-		"cardStyle": { "type": "string", "default": "standard" }
+		"cardStyle": { "type": "string", "default": "standard" },
+		"quoteText": { "type": "string", "default": "" },
+		"authorName": { "type": "string", "default": "" },
+		"authorTitle": { "type": "string", "default": "" },
+		"avatarUrl": { "type": "string", "default": "" },
+		"avatarId": { "type": "number" },
+		"avatarAlt": { "type": "string", "default": "" }
 	},
 	"textdomain": "story-video-block",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
-	"viewScript": "file:./view.js"
+	"viewScriptModule": "file:./view.js"
 }

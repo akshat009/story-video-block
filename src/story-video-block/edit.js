@@ -33,15 +33,18 @@ import {
 	ToggleControl,
 	Button,
 	BaseControl,
+	Placeholder,
 } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
+import { useDispatch } from '@wordpress/data';
 import clsx from 'clsx';
 
 import './editor.scss';
 import { parseVideoUrl, getAutoThumbnail } from './utils';
-import { PLAY_ICONS, PLAY_ICON_OPTIONS } from './icons';
+import { PLAY_ICON_OPTIONS } from './icons';
 import useOembedHtml from './hooks/useOembedHtml';
 import EmbedIframe from './components/EmbedIframe';
+import VideoFacade from './components/VideoFacade';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -54,7 +57,7 @@ import EmbedIframe from './components/EmbedIframe';
  *
  * @return {Element} Element to render.
  */
-export default function Edit( { attributes, setAttributes } ) {
+export default function Edit( { attributes, setAttributes, clientId } ) {
 	const {
 		videoUrl,
 		videoProvider,
@@ -69,10 +72,15 @@ export default function Edit( { attributes, setAttributes } ) {
 		videoPosition,
 		showQuotationMarks,
 		cardStyle,
+		quoteText,
+		authorName,
+		authorTitle,
+		avatarUrl,
+		avatarId,
+		avatarAlt,
 		transcriptUrl,
 		transcriptName,
 		backgroundColor,
-		textColor,
 	} = attributes;
 
 	const onChangeVideoUrl = ( newUrl ) => {
@@ -96,6 +104,18 @@ export default function Edit( { attributes, setAttributes } ) {
 		setAttributes( { posterUrl: '', posterId: undefined, posterAlt: '' } );
 	};
 
+	const onSelectAvatar = ( media ) => {
+		setAttributes( {
+			avatarUrl: media.url,
+			avatarId: media.id,
+			avatarAlt: media.alt || '',
+		} );
+	};
+
+	const onRemoveAvatar = () => {
+		setAttributes( { avatarUrl: '', avatarId: undefined, avatarAlt: '' } );
+	};
+
 	const onSelectTranscript = ( media ) => {
 		setAttributes( {
 			transcriptUrl: media.url,
@@ -116,6 +136,25 @@ export default function Edit( { attributes, setAttributes } ) {
 	const effectivePoster = posterUrl || autoThumbnail;
 	const embedHtml = useOembedHtml( videoUrl, videoProvider );
 
+	// Block saving/publishing until both a video URL and a poster are set.
+	const { lockPostSaving, unlockPostSaving } = useDispatch( 'core/editor' );
+	const lockName = `story-video-block-required-${ clientId }`;
+
+	useEffect( () => {
+		if ( ! videoUrl || ! effectivePoster ) {
+			lockPostSaving( lockName );
+		} else {
+			unlockPostSaving( lockName );
+		}
+		return () => unlockPostSaving( lockName );
+	}, [
+		videoUrl,
+		effectivePoster,
+		lockName,
+		lockPostSaving,
+		unlockPostSaving,
+	] );
+
 	const [ isPlaying, setIsPlaying ] = useState( false );
 
 	// Reset back to the poster whenever the video itself changes.
@@ -123,12 +162,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		setIsPlaying( false );
 	}, [ videoUrl ] );
 
-	const showVideo =
-		videoUrl &&
-		videoProvider !== 'file' &&
-		( isPlaying || ! effectivePoster );
-	const showFacade =
-		videoUrl && videoProvider !== 'file' && ! isPlaying && effectivePoster;
+	const showVideo = videoUrl && videoProvider !== 'file' && isPlaying;
+	const showFacade = videoUrl && videoProvider !== 'file' && ! isPlaying;
 
 	return (
 		<>
@@ -138,25 +173,38 @@ export default function Edit( { attributes, setAttributes } ) {
 					initialOpen
 				>
 					<TextControl
-						label={ __( 'Video URL', 'story-video-block' ) }
+						label={
+							__( 'Video URL', 'story-video-block' ) + ' *'
+						}
 						value={ videoUrl }
 						onChange={ onChangeVideoUrl }
 						help={
-							videoProvider
-								? __( 'Detected:', 'story-video-block' ) +
-								  ' ' +
-								  videoProvider
-								: __(
-										'YouTube, Vimeo, or a direct video file URL.',
+							! videoUrl ? (
+								<span style={ { color: '#cc1818' } }>
+									{ __(
+										'Required.',
 										'story-video-block'
-								  )
+									) }
+								</span>
+							) : videoProvider ? (
+								__( 'Detected:', 'story-video-block' ) +
+								' ' +
+								videoProvider
+							) : (
+								__(
+									'YouTube, Vimeo, or a direct video file URL.',
+									'story-video-block'
+								)
+							)
 						}
 						type="url"
 					/>
 
 					<BaseControl
 						id="story-video-block-poster-image"
-						label={ __( 'Poster image', 'story-video-block' ) }
+						label={
+							__( 'Poster image', 'story-video-block' ) + ' *'
+						}
 					>
 						{ effectivePoster && (
 							<img
@@ -164,6 +212,17 @@ export default function Edit( { attributes, setAttributes } ) {
 								alt=""
 								style={ { width: '100%', marginBottom: '8px' } }
 							/>
+						) }
+						{ ! effectivePoster && (
+							<p
+								className="description"
+								style={ { color: '#cc1818' } }
+							>
+								{ __(
+									'A poster image is required.',
+									'story-video-block'
+								) }
+							</p>
 						) }
 						{ ! autoThumbnail && (
 							<>
@@ -247,6 +306,81 @@ export default function Edit( { attributes, setAttributes } ) {
 						options={ PLAY_ICON_OPTIONS }
 						onChange={ ( v ) => setAttributes( { playIcon: v } ) }
 					/>
+				</PanelBody>
+
+				<PanelBody
+					title={ __( 'Testimonial Style', 'story-video-block' ) }
+					initialOpen={ false }
+				>
+					<p style={ { marginTop: 0, marginBottom: '12px' } }>
+						{ __(
+							'Use as a video testimonial by adding quotation marks around the text.',
+							'story-video-block'
+						) }
+					</p>
+					<ToggleControl
+						label={ __(
+							'Use as Video Testimonial',
+							'story-video-block'
+						) }
+						checked={ showQuotationMarks }
+						onChange={ ( newValue ) =>
+							setAttributes( { showQuotationMarks: newValue } )
+						}
+					/>
+					{ showQuotationMarks && (
+						<BaseControl
+							id="story-video-block-avatar-image"
+							label={ __( 'Author avatar', 'story-video-block' ) }
+						>
+							{ avatarUrl && (
+								<img
+									src={ avatarUrl }
+									alt=""
+									style={ {
+										width: '64px',
+										height: '64px',
+										borderRadius: '50%',
+										objectFit: 'cover',
+										marginBottom: '8px',
+									} }
+								/>
+							) }
+							<MediaUploadCheck>
+								<MediaUpload
+									onSelect={ onSelectAvatar }
+									allowedTypes={ [ 'image' ] }
+									value={ avatarId }
+									render={ ( { open } ) => (
+										<Button
+											variant="secondary"
+											onClick={ open }
+										>
+											{ avatarUrl
+												? __(
+														'Replace avatar',
+														'story-video-block'
+												  )
+												: __(
+														'Select avatar image',
+														'story-video-block'
+												  ) }
+										</Button>
+									) }
+								/>
+							</MediaUploadCheck>
+							{ avatarUrl && (
+								<Button
+									variant="link"
+									isDestructive
+									onClick={ onRemoveAvatar }
+									style={ { marginLeft: '8px' } }
+								>
+									{ __( 'Remove', 'story-video-block' ) }
+								</Button>
+							) }
+						</BaseControl>
+					) }
 				</PanelBody>
 
 				<PanelBody
@@ -362,30 +496,8 @@ export default function Edit( { attributes, setAttributes } ) {
 					</BaseControl>
 				</PanelBody>
 
-				<PanelBody
-					title={ __( 'Show Quotation Marks', 'story-video-block' ) }
-					initialOpen={ false }
-				>
-					<p style={ { marginTop: 0, marginBottom: '12px' } }>
-						{ __(
-							'Toggle the display of quotation marks around the text. When enabled, quotation marks will be shown, and when disabled, they will be hidden.',
-							'story-video-block'
-						) }
-					</p>
-					<ToggleControl
-						label={ __(
-							'Show Quotation Marks',
-							'story-video-block'
-						) }
-						checked={ showQuotationMarks }
-						onChange={ ( newValue ) =>
-							setAttributes( { showQuotationMarks: newValue } )
-						}
-					/>
-				</PanelBody>
-
 				<PanelColorSettings
-					title={ __( 'Color', 'story-video-block' ) }
+					title={ __( 'Background', 'story-video-block' ) }
 					initialOpen={ false }
 					colorSettings={ [
 						{
@@ -396,12 +508,6 @@ export default function Edit( { attributes, setAttributes } ) {
 								'Background color',
 								'story-video-block'
 							),
-						},
-						{
-							value: textColor,
-							onChange: ( v ) =>
-								setAttributes( { textColor: v } ),
-							label: __( 'Text color', 'story-video-block' ),
 						},
 					] }
 				/>
@@ -414,8 +520,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						[ `card-style-${ cardStyle }` ]: cardStyle,
 					} ),
 					style: {
-						backgroundColor: backgroundColor || undefined,
-						color: textColor || undefined,
+						'--story-video-block-bg': backgroundColor || undefined,
 					},
 				} ) }
 			>
@@ -441,61 +546,112 @@ export default function Edit( { attributes, setAttributes } ) {
 						</div>
 					) }
 					{ showFacade && (
-						<button
-							type="button"
-							className="story-video-block__facade"
-							data-play-style={ playButtonStyle }
+						<VideoFacade
+							posterUrl={ effectivePoster }
+							playButtonStyle={ playButtonStyle }
+							playIcon={ playIcon }
+							heading={ heading }
 							onClick={ () => setIsPlaying( true ) }
-							aria-label={
-								heading
-									? __( 'Play video:', 'story-video-block' ) +
-									  ' ' +
-									  heading
-									: __( 'Play video', 'story-video-block' )
-							}
-						>
-							<img src={ effectivePoster } alt="" />
-							<span
-								className="story-video-block__play-btn"
-								aria-hidden="true"
-							>
-								{ PLAY_ICONS[ playIcon ] ||
-									PLAY_ICONS.triangle }
-							</span>
-						</button>
+						/>
 					) }
 					{ ! videoUrl && (
-						<div className="story-video-block__media-placeholder">
-							{ __(
+						<Placeholder
+							icon="video-alt3"
+							label={ __( 'Video', 'story-video-block' ) }
+							instructions={ __(
 								'Add a video URL from the sidebar',
 								'story-video-block'
 							) }
-						</div>
+							className="story-video-block__media-placeholder"
+						/>
 					) }
 				</div>
 
 				<div className="story-video-block__content">
-					<RichText
-						tagName={ headingTag || 'h2' }
-						className="story-video-block__heading"
-						value={ heading }
-						onChange={ ( newHeading ) =>
-							setAttributes( { heading: newHeading } )
-						}
-						placeholder={ __( 'Heading…', 'story-video-block' ) }
-					/>
-					<RichText
-						tagName="p"
-						className="story-video-block__description"
-						value={ description }
-						onChange={ ( newDescription ) =>
-							setAttributes( { description: newDescription } )
-						}
-						placeholder={ __(
-							'Sub text / description…',
-							'story-video-block'
-						) }
-					/>
+					{ showQuotationMarks ? (
+						<>
+							<RichText
+								tagName="blockquote"
+								className="story-video-block__quote"
+								value={ quoteText }
+								onChange={ ( newQuote ) =>
+									setAttributes( { quoteText: newQuote } )
+								}
+								placeholder={ __(
+									'Testimonial quote…',
+									'story-video-block'
+								) }
+							/>
+							<div className="story-video-block__author">
+								{ avatarUrl && (
+									<img
+										className="story-video-block__author-avatar"
+										src={ avatarUrl }
+										alt={ avatarAlt }
+									/>
+								) }
+								<div className="story-video-block__author-info">
+									<RichText
+										tagName="p"
+										className="story-video-block__author-name"
+										value={ authorName }
+										onChange={ ( newName ) =>
+											setAttributes( {
+												authorName: newName,
+											} )
+										}
+										placeholder={ __(
+											'Author name…',
+											'story-video-block'
+										) }
+									/>
+									<RichText
+										tagName="p"
+										className="story-video-block__author-title"
+										value={ authorTitle }
+										onChange={ ( newTitle ) =>
+											setAttributes( {
+												authorTitle: newTitle,
+											} )
+										}
+										placeholder={ __(
+											'Author title / company…',
+											'story-video-block'
+										) }
+									/>
+								</div>
+							</div>
+						</>
+					) : (
+						<>
+							<RichText
+								tagName={ headingTag || 'h2' }
+								className="story-video-block__heading"
+								value={ heading }
+								onChange={ ( newHeading ) =>
+									setAttributes( { heading: newHeading } )
+								}
+								placeholder={ __(
+									'Heading…',
+									'story-video-block'
+								) }
+							/>
+							<RichText
+								tagName="p"
+								className="story-video-block__description"
+								value={ description }
+								onChange={ ( newDescription ) =>
+									setAttributes( {
+										description: newDescription,
+									} )
+								}
+								placeholder={ __(
+									'Sub text / description…',
+									'story-video-block'
+								) }
+							/>
+						</>
+					) }
 					{ transcriptUrl && (
 						<a
 							className="story-video-block__transcript"

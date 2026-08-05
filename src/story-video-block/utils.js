@@ -101,6 +101,58 @@ export function getAutoThumbnail( provider, id ) {
 }
 
 /**
+ * Builds a direct, embeddable iframe URL (with autoplay already on) for a
+ * detected provider + id, so the frontend can lazy-load the real player on
+ * click without an oEmbed round-trip (WordPress's `/oembed/1.0/proxy` REST
+ * route requires `edit_posts`, so it isn't reachable by anonymous visitors).
+ *
+ * @param {string} provider Detected video provider.
+ * @param {string} id       Provider-specific video id.
+ * @param {string} videoUrl Original pasted URL — needed as-is by providers
+ *                          (Facebook) whose embed URL wraps the full URL
+ *                          rather than just an id.
+ * @return {string} Embeddable iframe URL, or an empty string if the
+ *                   provider has no simple direct-embed URL (e.g. TikTok) —
+ *                   callers should fall back to linking to the original URL.
+ */
+export function getEmbedUrl( provider, id, videoUrl = '' ) {
+	if ( ! id ) {
+		return '';
+	}
+	switch ( provider ) {
+		case 'youtube':
+			return `https://www.youtube-nocookie.com/embed/${ id }?autoplay=1&playsinline=1`;
+		case 'vimeo':
+			return `https://player.vimeo.com/video/${ id }?autoplay=1`;
+		case 'dailymotion':
+			return `https://www.dailymotion.com/embed/video/${ id }?autoplay=1`;
+		case 'loom':
+			return `https://www.loom.com/embed/${ id }?autoplay=1`;
+		case 'wistia':
+			return `https://fast.wistia.net/embed/iframe/${ id }?autoPlay=true`;
+		case 'videopress':
+			return `https://videopress.com/embed/${ id }?autoPlay=true`;
+		case 'facebook':
+			return videoUrl
+				? `https://www.facebook.com/plugins/video.php?href=${ encodeURIComponent(
+						videoUrl
+				  ) }&autoplay=true&show_text=false`
+				: '';
+		case 'twitch': {
+			const parent =
+				typeof window !== 'undefined' ? window.location.hostname : '';
+			return parent
+				? `https://player.twitch.tv/?video=${ id }&parent=${ parent }&autoplay=true`
+				: '';
+		}
+		default:
+			// No simple direct-embed URL (e.g. TikTok) — caller should fall
+			// back to linking to the original video URL instead.
+			return '';
+	}
+}
+
+/**
  * Adds `autoplay=1` to the embedded iframe's `src` inside a chunk of
  * oEmbed HTML, so playback starts immediately once our own play button
  * is clicked, instead of requiring a second click on the provider's own
