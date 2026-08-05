@@ -5,7 +5,7 @@
  * Version:           0.1.0
  * Requires at least: 6.8
  * Requires PHP:      7.4
- * Author:            akshat009
+ * Author:            Akshat Saxena
  * Author URI:        https://github.com/akshat009
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
