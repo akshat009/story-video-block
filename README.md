@@ -1,5 +1,8 @@
 # Story Video Block
 
+[![CI](https://github.com/akshat009/story-video-block/actions/workflows/ci.yaml/badge.svg)](https://github.com/akshat009/story-video-block/actions/workflows/ci.yaml)
+[![License: GPL v2+](https://img.shields.io/badge/license-GPL--2.0--or--later-blue.svg)](LICENSE)
+
 A custom [WordPress Gutenberg block](https://developer.wordpress.org/block-editor/) for pairing a video (YouTube, Vimeo, Dailymotion, and more) with a heading, description, and attribution — built for testimonial and story-style sections.
 
 ## Features

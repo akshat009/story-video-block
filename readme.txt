@@ -1,5 +1,5 @@
 === Story Video Block ===
-Contributors:      yourwpusername
+Contributors:      developerakshat
 Tags:               video, testimonial, embed, block, youtube
 Requires at least:  6.8
 Tested up to:       7.0
