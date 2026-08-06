@@ -6,7 +6,7 @@
  */
 export function parseVideoUrl( Url ) {
 	if ( ! Url ) {
-	return { provider: '', id: '' };
+		return { provider: '', id: '' };
 	}
 
 	const youtubeMatch = Url.match(
