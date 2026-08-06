@@ -10,6 +10,7 @@ A custom [WordPress Gutenberg block](https://developer.wordpress.org/block-edito
 - **One field, auto-detected** — paste a URL from YouTube, Vimeo, Dailymotion, Facebook, Twitch, Wistia, Loom, TikTok, VideoPress, or a self-hosted `.mp4`/`.webm`/`.ogg`/`.mov` file. The provider and video ID are detected automatically.
 - **Poster image** — auto-pulled from YouTube/Dailymotion/Loom, or upload your own for any provider.
 - **Click-to-load playback** — no video player loads until the visitor clicks play, keeping the page fast.
+- **No React, no jQuery on the front end** — the click-to-play interaction runs on WordPress's native [`@wordpress/interactivity`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity/) module ([`view.js`](src/story-video-block/view.js)), not a framework. Nothing is shipped to visitors just to swap a poster image for a video embed.
 - **Configurable play button** — 4 built-in icon shapes × 3 color styles, and fully extendable via WordPress filters if you want to bring your own icon library (Font Awesome, Bootstrap Icons, etc. — see [`icons.js`](src/story-video-block/icons.js)).
 - **Editable heading & description** — inline rich text, with a selectable heading tag (H2–H4) and optional quotation marks.
 - **Media position** — video on the left or right of the content.
