@@ -7,6 +7,7 @@ Requires PHP:       7.4
 Stable tag:         0.1.0
 License:            GPL-2.0-or-later
 License URI:        https://www.gnu.org/licenses/gpl-2.0.html
+Source Code:        https://github.com/akshat009/story-video-block
 
 A video + text block for testimonial and story-style sections, with a click-to-play embed that only loads when a visitor presses play.
 
