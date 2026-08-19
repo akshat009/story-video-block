@@ -1,6 +1,6 @@
 === Story Video Block ===
 Contributors:      developerakshat
-Tags:               video, testimonial, embed, block, youtube
+Tags:               video, testimonial, youtube, gutenberg, video player
 Requires at least:  6.8
 Tested up to:       7.0
 Requires PHP:       7.4
@@ -9,11 +9,15 @@ License:            GPL-2.0-or-later
 License URI:        https://www.gnu.org/licenses/gpl-2.0.html
 Source Code:        https://github.com/akshat009/story-video-block
 
-A video + text block for testimonial and story-style sections, with a click-to-play embed that only loads when a visitor presses play.
+A fast video testimonial block for Gutenberg — YouTube, Vimeo & more, with a poster image and click-to-play embed. Zero React/jQuery on the front end.
 
 == Description ==
 
-Story Video Block is a block-editor (Gutenberg) block that pairs a video with a heading, description, and attribution — built for testimonial and story-style page sections.
+Story Video Block is a Gutenberg video block that pairs a video with a heading, description, and attribution — built for video testimonial and story-style page sections. Paste a YouTube, Vimeo, or other video URL, add a poster image, and the block handles a fast, click-to-play embed automatically.
+
+Unlike most video blocks, nothing is shipped to visitors just to swap a poster image for a video player: the click-to-play interaction runs on WordPress's native `@wordpress/interactivity` module — no React, no jQuery, no extra framework loaded on the front end.
+
+[Try it live in your browser](https://playground.wordpress.net/?plugin=story-video-block&url=/wp-admin/post-new.php%3Fpost_type%3Dpage) — no install required, via WordPress Playground.
 
 = Features =
 

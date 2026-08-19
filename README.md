@@ -5,6 +5,8 @@
 
 A custom [WordPress Gutenberg block](https://developer.wordpress.org/block-editor/) for pairing a video (YouTube, Vimeo, Dailymotion, and more) with a heading, description, and attribution — built for testimonial and story-style sections.
 
+**[Try it live in your browser](https://playground.wordpress.net/?plugin=story-video-block&url=/wp-admin/post-new.php%3Fpost_type%3Dpage)** — no install required, via WordPress Playground.
+
 ## Features
 
 - **One field, auto-detected** — paste a URL from YouTube, Vimeo, Dailymotion, Facebook, Twitch, Wistia, Loom, TikTok, VideoPress, or a self-hosted `.mp4`/`.webm`/`.ogg`/`.mov` file. The provider and video ID are detected automatically.
