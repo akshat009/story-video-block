@@ -17,8 +17,6 @@ Story Video Block is a Gutenberg video block that pairs a video with a heading, 
 
 Unlike most video blocks, nothing is shipped to visitors just to swap a poster image for a video player: the click-to-play interaction runs on WordPress's native `@wordpress/interactivity` module — no React, no jQuery, no extra framework loaded on the front end.
 
-[Try it live in your browser](https://playground.wordpress.net/?plugin=story-video-block&url=/wp-admin/post-new.php%3Fpost_type%3Dpage) — no install required, via WordPress Playground.
-
 = Features =
 
 * **One field, auto-detected** — paste a URL from YouTube, Vimeo, Dailymotion, Facebook, Twitch, Wistia, Loom, TikTok, VideoPress, or a self-hosted `.mp4`/`.webm`/`.ogg`/`.mov` file. The provider and video ID are detected automatically.
