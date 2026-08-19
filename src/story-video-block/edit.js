@@ -82,6 +82,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		transcriptUrl,
 		transcriptName,
 		backgroundColor,
+		textColor,
 	} = attributes;
 
 	const onChangeVideoUrl = ( newUrl ) => {
@@ -493,7 +494,10 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						) }
 					</BaseControl>
 				</PanelBody>
+			</InspectorControls>
 
+			{ /* Colors render into the native "Styles" tab, matching core blocks' own convention. */ }
+			<InspectorControls group="styles">
 				<PanelColorSettings
 					title={ __( 'Background', 'story-video-block' ) }
 					initialOpen={ false }
@@ -507,6 +511,12 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 								'story-video-block'
 							),
 						},
+						{
+							value: textColor,
+							onChange: ( v ) =>
+								setAttributes( { textColor: v } ),
+							label: __( 'Text color', 'story-video-block' ),
+						},
 					] }
 				/>
 			</InspectorControls>
@@ -519,6 +529,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					} ),
 					style: {
 						'--story-video-block-bg': backgroundColor || undefined,
+						'--story-video-block-color': textColor || undefined,
 					},
 				} ) }
 			>

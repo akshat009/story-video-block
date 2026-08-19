@@ -98,8 +98,16 @@ No. Nothing loads until a visitor clicks play, at which point the browser reques
 
 == Screenshots ==
 
-1. Editor view with the video URL and poster image controls in the sidebar.
-2. Frontend testimonial-style card with a click-to-play video.
+1. Editor — standard layout, with the Video, Layout, Testimonial, and Content settings in the sidebar and a dedicated Styles tab for background and text color.
+2. Frontend — standard layout with a YouTube video.
+3. Editor — media-left layout with a Dailymotion video.
+4. Frontend — media-left layout with a Dailymotion video.
+5. Editor — overlapping media card style with a Twitch video.
+6. Frontend — overlapping media card style; the video pokes out above and below the card.
+7. Editor — testimonial mode with a quote, author, and a Facebook video.
+8. Frontend — testimonial mode with a quote, author, and a Facebook video.
+9. Editor — branded play button style with a Loom video.
+10. Frontend — branded play button style with a Loom video.
 
 == Changelog ==
 

@@ -50,6 +50,7 @@ export default function save( { attributes } ) {
 		transcriptUrl,
 		transcriptName,
 		backgroundColor,
+		textColor,
 	} = attributes;
 
 	// Required fields — publishing is already blocked without these
@@ -73,6 +74,7 @@ export default function save( { attributes } ) {
 		} ),
 		style: {
 			'--story-video-block-bg': backgroundColor || undefined,
+			'--story-video-block-color': textColor || undefined,
 		},
 		...( ! isFile
 			? {

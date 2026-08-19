@@ -70,6 +70,10 @@ return array(
 				'type' => 'string',
 				'default' => ''
 			),
+			'textColor' => array(
+				'type' => 'string',
+				'default' => ''
+			),
 			'transcriptUrl' => array(
 				'type' => 'string',
 				'default' => ''

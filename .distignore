@@ -30,3 +30,5 @@ CONTRIBUTING.md
 *.log
 .DS_Store
 Thumbs.db
+scripts
+assets
