@@ -32,3 +32,6 @@ build/**/*.map
 
 # dotenv environment variables file
 .env
+
+# WIP local tooling scripts (not lint-clean, not part of the shipped plugin)
+scripts/

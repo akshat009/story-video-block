@@ -1,19 +1,19 @@
 === Story Video Block ===
 Contributors:      developerakshat
-Tags:               video, testimonial, embed, block, youtube
+Tags:               video, video embed, youtube, gutenberg, vimeo
 Requires at least:  6.8
 Tested up to:       7.0
 Requires PHP:       7.4
-Stable tag:         0.1.0
+Stable tag:         0.1.1
 License:            GPL-2.0-or-later
 License URI:        https://www.gnu.org/licenses/gpl-2.0.html
 Source Code:        https://github.com/akshat009/story-video-block
 
-A video + text block for testimonial and story-style sections, with a click-to-play embed that only loads when a visitor presses play.
+A fast video embed block for Gutenberg — YouTube, Vimeo & more, with a click-to-play embed that only loads when a visitor presses play.
 
 == Description ==
 
-Story Video Block is a block-editor (Gutenberg) block that pairs a video with a heading, description, and attribution — built for testimonial and story-style page sections.
+Story Video Block is a block-editor (Gutenberg) video embed block. It pairs a video with a heading, description, and attribution, so it works just as well for a plain video section as it does for a video testimonial or story-style layout.
 
 = Features =
 
@@ -102,6 +102,9 @@ No. Nothing loads until a visitor clicks play, at which point the browser reques
 2. Frontend testimonial-style card with a click-to-play video.
 
 == Changelog ==
+
+= 0.1.1 =
+* Repositioned as a general video embed block (not testimonial-first) in the plugin description and readme.
 
 = 0.1.0 =
 * Initial release.
