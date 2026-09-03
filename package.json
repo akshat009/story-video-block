@@ -1,6 +1,6 @@
 {
 	"name": "story-video-block",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A video + text block for testimonial and story-style sections, with a click-to-play embed built on the Interactivity API.",
 	"author": "Akshat Saxena",
 	"license": "GPL-2.0-or-later",
