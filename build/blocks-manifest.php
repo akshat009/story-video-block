@@ -5,7 +5,7 @@ return array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
 		'name' => 'create-block/story-video-block',
-		'version' => '1.0.0',
+		'version' => '1.0.1',
 		'title' => 'Story Video Block',
 		'category' => 'media',
 		'icon' => 'video-alt3',
