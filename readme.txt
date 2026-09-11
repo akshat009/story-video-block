@@ -2,9 +2,9 @@
 Contributors:      developerakshat
 Tags:               video, video player, video embed, youtube, gutenberg, vimeo
 Requires at least:  6.8
-Tested up to:       7.0
+Tested up to:       7.1
 Requires PHP:       7.4
-Stable tag:         0.1.1
+Stable tag:         1.0.0
 License:            GPL-2.0-or-later
 License URI:        https://www.gnu.org/licenses/gpl-2.0.html
 Source Code:        https://github.com/akshat009/story-video-block
@@ -78,6 +78,7 @@ Every variable the block reads (with its default) — set any subset of these fr
 * `--story-video-block-radius` (`12px`) — corner rounding
 * `--story-video-block-shadow` (`0 8px 24px rgba(0,0,0,.25)`) — drop shadow
 * `--story-video-block-media-margin-bottom` (`12px`)
+* `--story-video-block-video-only-height` (unset) — fixed media height in the "Video only" layout; unset keeps the natural 16:9 ratio
 * `--story-video-block-facade-bg` (`#000`) — poster background before the image loads
 
 **Play button**
@@ -111,8 +112,16 @@ No. Nothing loads until a visitor clicks play, at which point the browser reques
 8. Frontend — testimonial mode with a quote, author, and a Facebook video.
 9. Editor — branded play button style with a Loom video.
 10. Frontend — branded play button style with a Loom video.
+11. Editor — Video only mode, with the heading, description, and color controls hidden and an optional fixed height.
+12. Frontend — Video only mode; the video fills the whole card, with no surrounding text or background.
 
 == Changelog ==
+
+= 1.0.0 =
+* New "Video only" layout — use the block as a standalone video player: the heading, description, and testimonial content are dropped and the video fills the card edge to edge. Optional fixed height for consistent-sized players.
+* Text color is now applied. It was a documented setting that never reached the front end, so body text always rendered white regardless of the background.
+* Fixed the embed being letterboxed inside its own box, which left the card background showing down either side.
+* The inspector now hides settings that can't apply in Video only mode (media position, card style, testimonial, content, and colour).
 
 = 0.1.1 =
 * Repositioned as a general video embed block (not testimonial-first) in the plugin description and readme.
