@@ -1,6 +1,6 @@
 === Story Video Block ===
 Contributors:      developerakshat
-Tags:               video, video player, video embed, youtube, gutenberg, vimeo
+Tags:               video, video player, video embed, youtube, vimeo
 Requires at least:  6.8
 Tested up to:       7.1
 Requires PHP:       7.4
