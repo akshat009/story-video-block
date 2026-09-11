@@ -32,6 +32,10 @@ jobs:
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          # Without this the action looks for .wordpress-org/ (its default),
+          # finds nothing, and silently ships the release with no banner,
+          # icon or screenshots. Ours live in assets/.
+          ASSETS_DIR: assets
 
       - name: Attach zip to GitHub release
         uses: softprops/action-gh-release@v2
