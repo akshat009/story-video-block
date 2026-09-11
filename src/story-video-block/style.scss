@@ -95,6 +95,15 @@
 		}
 	}
 
+	// Element-qualified on purpose: `.story-video-block__video` is also worn
+	// by the iframe-wrapping <div> and by EmbedIframe's own <iframe>, and an
+	// iframe is a replaced element too -- object-fit there letterboxes the
+	// embed inside its own box, leaving the card background showing down
+	// either side. Only the real <video> tag (file uploads) wants this.
+	video.story-video-block__video {
+		object-fit: cover;
+	}
+
 	.story-video-block__facade {
 		position: relative;
 		display: block;
@@ -111,6 +120,36 @@
 			height: 100%;
 			object-fit: cover;
 			display: block;
+		}
+	}
+
+	// "Video only" layout: no content column at all, so the media has
+	// nothing to sit beside — drop the block's own padding/gap and let it
+	// fill the full width edge-to-edge instead of sitting in its usual
+	// flex-basis-320px slot. The optional height override
+	// (--story-video-block-video-only-height, set from the "Fixed height"
+	// field) is a no-op when unset, leaving the aspect-ratio rules above in
+	// charge.
+	&.is-video-only {
+		padding: 0;
+		gap: 0;
+
+		.story-video-block__media {
+			flex: 1 1 100%;
+			width: 100%;
+		}
+
+		// Nothing may sit between the media and the card's own edges, or the
+		// card background shows through behind it: the base rules' bottom
+		// margin leaves a strip under the video, and the rounded corners and
+		// drop shadow leave it peeking out at the corners.
+		.story-video-block__video,
+		.story-video-block__facade {
+			width: 100%;
+			height: var(--story-video-block-video-only-height, auto);
+			margin-bottom: 0;
+			border-radius: 0;
+			box-shadow: none;
 		}
 	}
 

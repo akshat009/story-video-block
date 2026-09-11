@@ -6,9 +6,10 @@
   "title": "Story Video Block",
   "category": "media",
   "icon": "video-alt3",
-  "description": "A video and text section with lazy-loaded video embeds.",
+  "description": "A video and text section with lazy-loaded video embeds — or a standalone video player with Video only mode.",
   "keywords": [
     "video",
+    "player",
     "youtube",
     "story",
     "testimonial"
@@ -96,6 +97,14 @@
     "cardStyle": {
       "type": "string",
       "default": "standard"
+    },
+    "videoOnly": {
+      "type": "boolean",
+      "default": false
+    },
+    "videoOnlyHeight": {
+      "type": "string",
+      "default": ""
     },
     "quoteText": {
       "type": "string",

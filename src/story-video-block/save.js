@@ -42,6 +42,8 @@ export default function save( { attributes } ) {
 		videoPosition,
 		showQuotationMarks,
 		cardStyle,
+		videoOnly,
+		videoOnlyHeight,
 		quoteText,
 		authorName,
 		authorTitle,
@@ -50,6 +52,7 @@ export default function save( { attributes } ) {
 		transcriptUrl,
 		transcriptName,
 		backgroundColor,
+		textColor,
 	} = attributes;
 
 	// Required fields — publishing is already blocked without these
@@ -68,11 +71,17 @@ export default function save( { attributes } ) {
 
 	const blockProps = useBlockProps.save( {
 		className: clsx( {
-			[ `has-media-${ videoPosition }` ]: videoPosition,
-			[ `card-style-${ cardStyle }` ]: cardStyle,
+			[ `has-media-${ videoPosition }` ]: videoPosition && ! videoOnly,
+			[ `card-style-${ cardStyle }` ]: cardStyle && ! videoOnly,
+			'is-video-only': videoOnly,
 		} ),
 		style: {
 			'--story-video-block-bg': backgroundColor || undefined,
+			'--story-video-block-color': textColor || undefined,
+			'--story-video-block-video-only-height':
+				videoOnly && videoOnlyHeight
+					? `${ videoOnlyHeight }px`
+					: undefined,
 		},
 		...( ! isFile
 			? {
@@ -148,68 +157,70 @@ export default function save( { attributes } ) {
 				) }
 			</div>
 
-			<div className="story-video-block__content">
-				{ showQuotationMarks ? (
-					<>
-						<RichText.Content
-							tagName="blockquote"
-							className="story-video-block__quote"
-							value={ quoteText }
-						/>
-						<div className="story-video-block__author">
-							{ avatarUrl && (
-								<img
-									className="story-video-block__author-avatar"
-									src={ avatarUrl }
-									alt={ avatarAlt || '' }
-								/>
-							) }
-							<div className="story-video-block__author-info">
-								<RichText.Content
-									tagName="p"
-									className="story-video-block__author-name"
-									value={ authorName }
-								/>
-								<RichText.Content
-									tagName="p"
-									className="story-video-block__author-title"
-									value={ authorTitle }
-								/>
+			{ ! videoOnly && (
+				<div className="story-video-block__content">
+					{ showQuotationMarks ? (
+						<>
+							<RichText.Content
+								tagName="blockquote"
+								className="story-video-block__quote"
+								value={ quoteText }
+							/>
+							<div className="story-video-block__author">
+								{ avatarUrl && (
+									<img
+										className="story-video-block__author-avatar"
+										src={ avatarUrl }
+										alt={ avatarAlt || '' }
+									/>
+								) }
+								<div className="story-video-block__author-info">
+									<RichText.Content
+										tagName="p"
+										className="story-video-block__author-name"
+										value={ authorName }
+									/>
+									<RichText.Content
+										tagName="p"
+										className="story-video-block__author-title"
+										value={ authorTitle }
+									/>
+								</div>
 							</div>
-						</div>
-					</>
-				) : (
-					<>
-						<RichText.Content
-							tagName={ headingTag || 'h2' }
-							className="story-video-block__heading"
-							value={ heading }
-						/>
-						<RichText.Content
-							tagName="p"
-							className="story-video-block__description"
-							value={ description }
-						/>
-					</>
-				) }
-				{ transcriptUrl && (
-					<a
-						className="story-video-block__transcript"
-						href={ transcriptUrl }
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						{ __( 'Download transcript', 'story-video-block' ) }
-						{ transcriptName ? ` – ${ transcriptName }` : '' }
-						<span className="screen-reader-text">
-							{ __(
-								'(opens in a new tab)',
-								'story-video-block'
-							) }
-						</span>
-					</a>
-				) }
-			</div>
+						</>
+					) : (
+						<>
+							<RichText.Content
+								tagName={ headingTag || 'h2' }
+								className="story-video-block__heading"
+								value={ heading }
+							/>
+							<RichText.Content
+								tagName="p"
+								className="story-video-block__description"
+								value={ description }
+							/>
+						</>
+					) }
+					{ transcriptUrl && (
+						<a
+							className="story-video-block__transcript"
+							href={ transcriptUrl }
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							{ __( 'Download transcript', 'story-video-block' ) }
+							{ transcriptName ? ` – ${ transcriptName }` : '' }
+							<span className="screen-reader-text">
+								{ __(
+									'(opens in a new tab)',
+									'story-video-block'
+								) }
+							</span>
+						</a>
+					) }
+				</div>
+			) }
 		</div>
 	);
 }

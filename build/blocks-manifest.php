@@ -9,9 +9,10 @@ return array(
 		'title' => 'Story Video Block',
 		'category' => 'media',
 		'icon' => 'video-alt3',
-		'description' => 'A video and text section with lazy-loaded video embeds.',
+		'description' => 'A video and text section with lazy-loaded video embeds — or a standalone video player with Video only mode.',
 		'keywords' => array(
 			'video',
+			'player',
 			'youtube',
 			'story',
 			'testimonial'
@@ -101,6 +102,14 @@ return array(
 			'cardStyle' => array(
 				'type' => 'string',
 				'default' => 'standard'
+			),
+			'videoOnly' => array(
+				'type' => 'boolean',
+				'default' => false
+			),
+			'videoOnlyHeight' => array(
+				'type' => 'string',
+				'default' => ''
 			),
 			'quoteText' => array(
 				'type' => 'string',

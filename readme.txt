@@ -1,6 +1,6 @@
 === Story Video Block ===
 Contributors:      developerakshat
-Tags:               video, video embed, youtube, gutenberg, vimeo
+Tags:               video, video player, video embed, youtube, gutenberg, vimeo
 Requires at least:  6.8
 Tested up to:       7.0
 Requires PHP:       7.4
@@ -13,7 +13,7 @@ A fast video embed block for Gutenberg — YouTube, Vimeo & more, with a click-t
 
 == Description ==
 
-Story Video Block is a block-editor (Gutenberg) video embed block. It pairs a video with a heading, description, and attribution, so it works just as well for a plain video section as it does for a video testimonial or story-style layout.
+Story Video Block is a block-editor (Gutenberg) video embed block. It pairs a video with a heading, description, and attribution, so it works just as well for a video testimonial or story-style layout as it does as a standalone video player — the "Video only" layout drops the text entirely for a clean, full-width embed.
 
 = Features =
 
@@ -23,9 +23,10 @@ Story Video Block is a block-editor (Gutenberg) video embed block. It pairs a vi
 * **No React, no jQuery on the front end** — the click-to-play interaction runs on WordPress's native `@wordpress/interactivity` module (a script module, not a classic script), not a framework. Nothing is shipped to visitors just to swap a poster image for a video embed.
 * **Configurable play button** — 4 built-in icon shapes x 3 color styles, and extendable via WordPress filters if you want to bring your own icon library.
 * **Testimonial mode** — swap the heading/description for a quote, author name, author title, and avatar.
+* **Video only mode** — use it as a standalone video player: drops the heading, description, and testimonial content for a full-width embed, with an optional fixed height for consistent-sized players.
 * **Media position** — video on the left or right of the content.
 * **Card style** — standard, or an "overlapping media" look where the video pokes out above/below the card.
-* **Background color control**, plus CSS custom properties for everything else (padding, gap, radius, shadow, play-button colors, and more) so a theme can restyle the block without editing plugin files.
+* **Background & text color controls**, plus CSS custom properties for everything else (padding, gap, radius, shadow, play-button colors, and more) so a theme can restyle the block without editing plugin files.
 * **Transcript upload** — attach a PDF/Word/text file for accessibility; renders as a labeled download link.
 * **Developer filters** — `story_video_block_css_vars` and `story_video_block_content` let a theme or must-use plugin adjust the block's frontend CSS/markup from `functions.php`.
 * **Accessible by default** — labeled controls, `aria-label`s on interactive elements, decorative images marked as such, and visible "opens in a new tab" hints for screen readers.
