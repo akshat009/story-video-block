@@ -1,6 +1,6 @@
 {
 	"name": "story-video-block",
-	"version": "0.1.1",
+	"version": "1.0.0",
 	"description": "A video + text block for testimonial and story-style sections, with a click-to-play embed built on the Interactivity API.",
 	"author": "Akshat Saxena",
 	"license": "GPL-2.0-or-later",
@@ -36,6 +36,8 @@
 		"@wordpress/prettier-config": "^4.52.0",
 		"@wordpress/scripts": "^34.0.0",
 		"cross-env": "^7.0.3",
-		"husky": "^9.1.7"
+		"gifenc": "^1.0.3",
+		"husky": "^9.1.7",
+		"pngjs": "^7.0.0"
 	}
 }

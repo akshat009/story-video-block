@@ -1,1 +1,23 @@
-.wp-block-create-block-story-video-block{border:1px dotted red}.wp-block-create-block-story-video-block .story-video-block__media-placeholder{align-items:center;aspect-ratio:16/9;background:rgba(0,0,0,.05);border:1px dashed rgba(0,0,0,.2);display:flex;justify-content:center;margin-bottom:12px;padding:16px;text-align:center}
+/*!**********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/story-video-block/editor.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Everything shared with the frontend (facade, video, play button, etc.)
+ * now lives in style.scss so the real markup in save.js is styled too.
+ */
+.wp-block-create-block-story-video-block {
+  border: 1px dotted #f00;
+}
+.wp-block-create-block-story-video-block .story-video-block__media-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16/9;
+  margin-bottom: 12px;
+  padding: 16px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+}

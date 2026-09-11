@@ -548,10 +548,14 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						</BaseControl>
 					</PanelBody>
 				) }
+			</InspectorControls>
 
-				{ /* Video only fills the whole card, so neither colour can
-				     ever show -- there's no exposed background and no text. */ }
-				{ ! videoOnly && (
+			{ /* Colours render into the native "Styles" tab, matching core
+			     blocks' own convention. Video only fills the whole card, so
+			     neither colour can ever show there -- no exposed background
+			     and no text -- and the whole tab drops out with it. */ }
+			{ ! videoOnly && (
+				<InspectorControls group="styles">
 					<PanelColorSettings
 						title={ __( 'Color', 'story-video-block' ) }
 						initialOpen={ false }
@@ -573,8 +577,8 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							},
 						] }
 					/>
-				) }
-			</InspectorControls>
+				</InspectorControls>
+			) }
 
 			<div
 				{ ...useBlockProps( {
