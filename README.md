@@ -3,7 +3,7 @@
 [![CI](https://github.com/akshat009/story-video-block/actions/workflows/ci.yaml/badge.svg)](https://github.com/akshat009/story-video-block/actions/workflows/ci.yaml)
 [![License: GPL v2+](https://img.shields.io/badge/license-GPL--2.0--or--later-blue.svg)](LICENSE)
 
-A custom [WordPress Gutenberg block](https://developer.wordpress.org/block-editor/) for pairing a video (YouTube, Vimeo, Dailymotion, and more) with a heading, description, and attribution — built for testimonial and story-style sections.
+A custom [WordPress Gutenberg block](https://developer.wordpress.org/block-editor/) for pairing a video (YouTube, Vimeo, Dailymotion, and more) with a heading, description, and attribution — built for testimonial and story-style sections. Switch on "Video only" mode and it works just as well as a standalone video player, with no text at all.
 
 ## Features
 
@@ -13,6 +13,7 @@ A custom [WordPress Gutenberg block](https://developer.wordpress.org/block-edito
 - **No React, no jQuery on the front end** — the click-to-play interaction runs on WordPress's native [`@wordpress/interactivity`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity/) module ([`view.js`](src/story-video-block/view.js)), not a framework. Nothing is shipped to visitors just to swap a poster image for a video embed.
 - **Configurable play button** — 4 built-in icon shapes × 3 color styles, and fully extendable via WordPress filters if you want to bring your own icon library (Font Awesome, Bootstrap Icons, etc. — see [`icons.js`](src/story-video-block/icons.js)).
 - **Editable heading & description** — inline rich text, with a selectable heading tag (H2–H4) and optional quotation marks.
+- **Video only mode** — use it as a standalone video player: drops the heading, description, and testimonial content for a full-width embed, with an optional fixed height for consistent-sized players.
 - **Media position** — video on the left or right of the content.
 - **Card style** — standard, or an "overlapping media" look where the video pokes out above/below the card.
 - **Background & text color** controls.

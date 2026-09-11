@@ -73,6 +73,8 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		videoPosition,
 		showQuotationMarks,
 		cardStyle,
+		videoOnly,
+		videoOnlyHeight,
 		quoteText,
 		authorName,
 		authorTitle,
@@ -82,6 +84,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		transcriptUrl,
 		transcriptName,
 		backgroundColor,
+		textColor,
 	} = attributes;
 
 	const onChangeVideoUrl = ( newUrl ) => {
@@ -306,219 +309,289 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					/>
 				</PanelBody>
 
+				{ ! videoOnly && (
+					<PanelBody
+						title={ __( 'Testimonial Style', 'story-video-block' ) }
+						initialOpen={ false }
+					>
+						<p style={ { marginTop: 0, marginBottom: '12px' } }>
+							{ __(
+								'Use as a video testimonial by adding quotation marks around the text.',
+								'story-video-block'
+							) }
+						</p>
+						<ToggleControl
+							label={ __(
+								'Use as Video Testimonial',
+								'story-video-block'
+							) }
+							checked={ showQuotationMarks }
+							onChange={ ( newValue ) =>
+								setAttributes( {
+									showQuotationMarks: newValue,
+								} )
+							}
+						/>
+						{ showQuotationMarks && (
+							<BaseControl
+								id="story-video-block-avatar-image"
+								label={ __(
+									'Author avatar',
+									'story-video-block'
+								) }
+							>
+								{ avatarUrl && (
+									<img
+										src={ avatarUrl }
+										alt=""
+										style={ {
+											width: '64px',
+											height: '64px',
+											borderRadius: '50%',
+											objectFit: 'cover',
+											marginBottom: '8px',
+										} }
+									/>
+								) }
+								<MediaUploadCheck>
+									<MediaUpload
+										onSelect={ onSelectAvatar }
+										allowedTypes={ [ 'image' ] }
+										value={ avatarId }
+										render={ ( { open } ) => (
+											<Button
+												variant="secondary"
+												onClick={ open }
+											>
+												{ avatarUrl
+													? __(
+															'Replace avatar',
+															'story-video-block'
+													  )
+													: __(
+															'Select avatar image',
+															'story-video-block'
+													  ) }
+											</Button>
+										) }
+									/>
+								</MediaUploadCheck>
+								{ avatarUrl && (
+									<Button
+										variant="link"
+										isDestructive
+										onClick={ onRemoveAvatar }
+										style={ { marginLeft: '8px' } }
+									>
+										{ __( 'Remove', 'story-video-block' ) }
+									</Button>
+								) }
+							</BaseControl>
+						) }
+					</PanelBody>
+				) }
+
 				<PanelBody
-					title={ __( 'Testimonial Style', 'story-video-block' ) }
+					title={ __( 'Layout', 'story-video-block' ) }
 					initialOpen={ false }
 				>
-					<p style={ { marginTop: 0, marginBottom: '12px' } }>
-						{ __(
-							'Use as a video testimonial by adding quotation marks around the text.',
-							'story-video-block'
-						) }
-					</p>
 					<ToggleControl
-						label={ __(
-							'Use as Video Testimonial',
+						label={ __( 'Video only', 'story-video-block' ) }
+						help={ __(
+							'Hide the heading, description, and testimonial content — just the video, full width.',
 							'story-video-block'
 						) }
-						checked={ showQuotationMarks }
+						checked={ videoOnly }
 						onChange={ ( newValue ) =>
-							setAttributes( { showQuotationMarks: newValue } )
+							setAttributes( { videoOnly: newValue } )
 						}
 					/>
-					{ showQuotationMarks && (
-						<BaseControl
-							id="story-video-block-avatar-image"
-							label={ __( 'Author avatar', 'story-video-block' ) }
-						>
-							{ avatarUrl && (
-								<img
-									src={ avatarUrl }
-									alt=""
-									style={ {
-										width: '64px',
-										height: '64px',
-										borderRadius: '50%',
-										objectFit: 'cover',
-										marginBottom: '8px',
-									} }
-								/>
+					{ videoOnly && (
+						<TextControl
+							label={ __(
+								'Fixed height (px)',
+								'story-video-block'
 							) }
+							help={ __(
+								'Leave blank to keep the video’s natural 16:9 aspect ratio. When set, the video crops to fill this height instead.',
+								'story-video-block'
+							) }
+							type="number"
+							value={ videoOnlyHeight }
+							onChange={ ( newHeight ) =>
+								setAttributes( { videoOnlyHeight: newHeight } )
+							}
+						/>
+					) }
+					{ ! videoOnly && (
+						<SelectControl
+							label={ __(
+								'Media position',
+								'story-video-block'
+							) }
+							value={ videoPosition }
+							options={ [
+								{ label: 'Left', value: 'left' },
+								{ label: 'Right', value: 'right' },
+							] }
+							onChange={ ( newPosition ) =>
+								setAttributes( { videoPosition: newPosition } )
+							}
+						/>
+					) }
+					{ ! videoOnly && (
+						<SelectControl
+							label={ __( 'Card style', 'story-video-block' ) }
+							value={ cardStyle }
+							options={ [
+								{
+									label: __(
+										'Standard',
+										'story-video-block'
+									),
+									value: 'standard',
+								},
+								{
+									label: __(
+										'Overlapping media',
+										'story-video-block'
+									),
+									value: 'overlap',
+								},
+							] }
+							help={ __(
+								'Overlapping media makes the video/poster poke out above and below the card.',
+								'story-video-block'
+							) }
+							onChange={ ( newStyle ) =>
+								setAttributes( { cardStyle: newStyle } )
+							}
+						/>
+					) }
+				</PanelBody>
+
+				{ ! videoOnly && (
+					<PanelBody
+						title={ __( 'Content', 'story-video-block' ) }
+						initialOpen={ false }
+					>
+						<SelectControl
+							label={ __( 'Heading tag', 'story-video-block' ) }
+							value={ headingTag }
+							options={ [
+								{ label: 'H2', value: 'h2' },
+								{ label: 'H3', value: 'h3' },
+								{ label: 'H4', value: 'h4' },
+							] }
+							onChange={ ( newTag ) =>
+								setAttributes( { headingTag: newTag } )
+							}
+						/>
+
+						<BaseControl
+							id="story-video-block-transcript-file"
+							label={ __(
+								'Transcript file',
+								'story-video-block'
+							) }
+						>
 							<MediaUploadCheck>
 								<MediaUpload
-									onSelect={ onSelectAvatar }
-									allowedTypes={ [ 'image' ] }
-									value={ avatarId }
+									onSelect={ onSelectTranscript }
+									allowedTypes={ [
+										'application/pdf',
+										'text/plain',
+										'application/msword',
+										'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+									] }
 									render={ ( { open } ) => (
 										<Button
 											variant="secondary"
 											onClick={ open }
 										>
-											{ avatarUrl
+											{ transcriptUrl
 												? __(
-														'Replace avatar',
+														'Replace transcript',
 														'story-video-block'
 												  )
 												: __(
-														'Select avatar image',
+														'Upload transcript',
 														'story-video-block'
 												  ) }
 										</Button>
 									) }
 								/>
 							</MediaUploadCheck>
-							{ avatarUrl && (
+							{ transcriptUrl && (
 								<Button
 									variant="link"
 									isDestructive
-									onClick={ onRemoveAvatar }
+									onClick={ onRemoveTranscript }
 									style={ { marginLeft: '8px' } }
 								>
 									{ __( 'Remove', 'story-video-block' ) }
 								</Button>
 							) }
+							{ transcriptUrl && (
+								<p className="description">
+									{ transcriptName }
+								</p>
+							) }
+							{ ! transcriptUrl && (
+								<p className="description">
+									{ __(
+										'For accessibility: lets visitors read along or download a transcript of the video.',
+										'story-video-block'
+									) }
+								</p>
+							) }
 						</BaseControl>
-					) }
-				</PanelBody>
+					</PanelBody>
+				) }
 
-				<PanelBody
-					title={ __( 'Layout', 'story-video-block' ) }
-					initialOpen={ false }
-				>
-					<SelectControl
-						label={ __( 'Media position', 'story-video-block' ) }
-						value={ videoPosition }
-						options={ [
-							{ label: 'Left', value: 'left' },
-							{ label: 'Right', value: 'right' },
-						] }
-						onChange={ ( newPosition ) =>
-							setAttributes( { videoPosition: newPosition } )
-						}
-					/>
-					<SelectControl
-						label={ __( 'Card style', 'story-video-block' ) }
-						value={ cardStyle }
-						options={ [
+				{ /* Video only fills the whole card, so neither colour can
+				     ever show -- there's no exposed background and no text. */ }
+				{ ! videoOnly && (
+					<PanelColorSettings
+						title={ __( 'Color', 'story-video-block' ) }
+						initialOpen={ false }
+						colorSettings={ [
 							{
-								label: __( 'Standard', 'story-video-block' ),
-								value: 'standard',
-							},
-							{
+								value: backgroundColor,
+								onChange: ( v ) =>
+									setAttributes( { backgroundColor: v } ),
 								label: __(
-									'Overlapping media',
+									'Background color',
 									'story-video-block'
 								),
-								value: 'overlap',
+							},
+							{
+								value: textColor,
+								onChange: ( v ) =>
+									setAttributes( { textColor: v } ),
+								label: __( 'Text color', 'story-video-block' ),
 							},
 						] }
-						help={ __(
-							'Overlapping media makes the video/poster poke out above and below the card.',
-							'story-video-block'
-						) }
-						onChange={ ( newStyle ) =>
-							setAttributes( { cardStyle: newStyle } )
-						}
 					/>
-				</PanelBody>
-
-				<PanelBody
-					title={ __( 'Content', 'story-video-block' ) }
-					initialOpen={ false }
-				>
-					<SelectControl
-						label={ __( 'Heading tag', 'story-video-block' ) }
-						value={ headingTag }
-						options={ [
-							{ label: 'H2', value: 'h2' },
-							{ label: 'H3', value: 'h3' },
-							{ label: 'H4', value: 'h4' },
-						] }
-						onChange={ ( newTag ) =>
-							setAttributes( { headingTag: newTag } )
-						}
-					/>
-
-					<BaseControl
-						id="story-video-block-transcript-file"
-						label={ __( 'Transcript file', 'story-video-block' ) }
-					>
-						<MediaUploadCheck>
-							<MediaUpload
-								onSelect={ onSelectTranscript }
-								allowedTypes={ [
-									'application/pdf',
-									'text/plain',
-									'application/msword',
-									'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-								] }
-								render={ ( { open } ) => (
-									<Button
-										variant="secondary"
-										onClick={ open }
-									>
-										{ transcriptUrl
-											? __(
-													'Replace transcript',
-													'story-video-block'
-											  )
-											: __(
-													'Upload transcript',
-													'story-video-block'
-											  ) }
-									</Button>
-								) }
-							/>
-						</MediaUploadCheck>
-						{ transcriptUrl && (
-							<Button
-								variant="link"
-								isDestructive
-								onClick={ onRemoveTranscript }
-								style={ { marginLeft: '8px' } }
-							>
-								{ __( 'Remove', 'story-video-block' ) }
-							</Button>
-						) }
-						{ transcriptUrl && (
-							<p className="description">{ transcriptName }</p>
-						) }
-						{ ! transcriptUrl && (
-							<p className="description">
-								{ __(
-									'For accessibility: lets visitors read along or download a transcript of the video.',
-									'story-video-block'
-								) }
-							</p>
-						) }
-					</BaseControl>
-				</PanelBody>
-
-				<PanelColorSettings
-					title={ __( 'Background', 'story-video-block' ) }
-					initialOpen={ false }
-					colorSettings={ [
-						{
-							value: backgroundColor,
-							onChange: ( v ) =>
-								setAttributes( { backgroundColor: v } ),
-							label: __(
-								'Background color',
-								'story-video-block'
-							),
-						},
-					] }
-				/>
+				) }
 			</InspectorControls>
 
 			<div
 				{ ...useBlockProps( {
 					className: clsx( {
-						[ `has-media-${ videoPosition }` ]: videoPosition,
-						[ `card-style-${ cardStyle }` ]: cardStyle,
+						[ `has-media-${ videoPosition }` ]:
+							videoPosition && ! videoOnly,
+						[ `card-style-${ cardStyle }` ]:
+							cardStyle && ! videoOnly,
+						'is-video-only': videoOnly,
 					} ),
 					style: {
 						'--story-video-block-bg': backgroundColor || undefined,
+						'--story-video-block-color': textColor || undefined,
+						'--story-video-block-video-only-height':
+							videoOnly && videoOnlyHeight
+								? `${ videoOnlyHeight }px`
+								: undefined,
 					},
 				} ) }
 			>
@@ -565,109 +638,116 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 					) }
 				</div>
 
-				<div className="story-video-block__content">
-					{ showQuotationMarks ? (
-						<>
-							<RichText
-								tagName="blockquote"
-								className="story-video-block__quote"
-								value={ quoteText }
-								onChange={ ( newQuote ) =>
-									setAttributes( { quoteText: newQuote } )
-								}
-								placeholder={ __(
-									'Testimonial quote…',
-									'story-video-block'
-								) }
-							/>
-							<div className="story-video-block__author">
-								{ avatarUrl && (
-									<img
-										className="story-video-block__author-avatar"
-										src={ avatarUrl }
-										alt={ avatarAlt }
-									/>
-								) }
-								<div className="story-video-block__author-info">
-									<RichText
-										tagName="p"
-										className="story-video-block__author-name"
-										value={ authorName }
-										onChange={ ( newName ) =>
-											setAttributes( {
-												authorName: newName,
-											} )
-										}
-										placeholder={ __(
-											'Author name…',
-											'story-video-block'
-										) }
-									/>
-									<RichText
-										tagName="p"
-										className="story-video-block__author-title"
-										value={ authorTitle }
-										onChange={ ( newTitle ) =>
-											setAttributes( {
-												authorTitle: newTitle,
-											} )
-										}
-										placeholder={ __(
-											'Author title / company…',
-											'story-video-block'
-										) }
-									/>
+				{ ! videoOnly && (
+					<div className="story-video-block__content">
+						{ showQuotationMarks ? (
+							<>
+								<RichText
+									tagName="blockquote"
+									className="story-video-block__quote"
+									value={ quoteText }
+									onChange={ ( newQuote ) =>
+										setAttributes( { quoteText: newQuote } )
+									}
+									placeholder={ __(
+										'Testimonial quote…',
+										'story-video-block'
+									) }
+								/>
+								<div className="story-video-block__author">
+									{ avatarUrl && (
+										<img
+											className="story-video-block__author-avatar"
+											src={ avatarUrl }
+											alt={ avatarAlt }
+										/>
+									) }
+									<div className="story-video-block__author-info">
+										<RichText
+											tagName="p"
+											className="story-video-block__author-name"
+											value={ authorName }
+											onChange={ ( newName ) =>
+												setAttributes( {
+													authorName: newName,
+												} )
+											}
+											placeholder={ __(
+												'Author name…',
+												'story-video-block'
+											) }
+										/>
+										<RichText
+											tagName="p"
+											className="story-video-block__author-title"
+											value={ authorTitle }
+											onChange={ ( newTitle ) =>
+												setAttributes( {
+													authorTitle: newTitle,
+												} )
+											}
+											placeholder={ __(
+												'Author title / company…',
+												'story-video-block'
+											) }
+										/>
+									</div>
 								</div>
-							</div>
-						</>
-					) : (
-						<>
-							<RichText
-								tagName={ headingTag || 'h2' }
-								className="story-video-block__heading"
-								value={ heading }
-								onChange={ ( newHeading ) =>
-									setAttributes( { heading: newHeading } )
-								}
-								placeholder={ __(
-									'Heading…',
-									'story-video-block'
-								) }
-							/>
-							<RichText
-								tagName="p"
-								className="story-video-block__description"
-								value={ description }
-								onChange={ ( newDescription ) =>
-									setAttributes( {
-										description: newDescription,
-									} )
-								}
-								placeholder={ __(
-									'Sub text / description…',
-									'story-video-block'
-								) }
-							/>
-						</>
-					) }
-					{ transcriptUrl && (
-						<a
-							className="story-video-block__transcript"
-							href={ transcriptUrl }
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							{ __( 'Download transcript', 'story-video-block' ) }
-							{ transcriptName ? ` – ${ transcriptName }` : '' }
-							<span className="screen-reader-text">
+							</>
+						) : (
+							<>
+								<RichText
+									tagName={ headingTag || 'h2' }
+									className="story-video-block__heading"
+									value={ heading }
+									onChange={ ( newHeading ) =>
+										setAttributes( { heading: newHeading } )
+									}
+									placeholder={ __(
+										'Heading…',
+										'story-video-block'
+									) }
+								/>
+								<RichText
+									tagName="p"
+									className="story-video-block__description"
+									value={ description }
+									onChange={ ( newDescription ) =>
+										setAttributes( {
+											description: newDescription,
+										} )
+									}
+									placeholder={ __(
+										'Sub text / description…',
+										'story-video-block'
+									) }
+								/>
+							</>
+						) }
+						{ transcriptUrl && (
+							<a
+								className="story-video-block__transcript"
+								href={ transcriptUrl }
+								target="_blank"
+								rel="noopener noreferrer"
+							>
 								{ __(
-									'(opens in a new tab)',
+									'Download transcript',
 									'story-video-block'
 								) }
-							</span>
-						</a>
-					) }
-				</div>
+								{ transcriptName
+									? ` – ${ transcriptName }`
+									: '' }
+								<span className="screen-reader-text">
+									{ __(
+										'(opens in a new tab)',
+										'story-video-block'
+									) }
+								</span>
+							</a>
+						) }
+					</div>
+				) }
 			</div>
 		</>
 	);
