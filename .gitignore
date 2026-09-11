@@ -33,5 +33,6 @@ build/**/*.map
 # dotenv environment variables file
 .env
 
-# WIP local tooling scripts (not lint-clean, not part of the shipped plugin)
+# Dev-only screenshot/asset-generation tooling — not needed by GitHub
+# checkouts or the WP.org repo, only used locally to (re)build assets/.
 scripts/

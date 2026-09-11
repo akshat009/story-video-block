@@ -25,6 +25,7 @@
 		"headingTag": { "type": "string", "default": "h2" },
 		"description": { "type": "string", "default": "" },
 		"backgroundColor": { "type": "string", "default": "" },
+		"textColor": { "type": "string", "default": "" },
 		"transcriptUrl": { "type": "string", "default": "" },
 		"transcriptName": { "type": "string", "default": "" },
 		"transcriptSize": { "type": "string", "default": "" },

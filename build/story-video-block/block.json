@@ -66,6 +66,10 @@
       "type": "string",
       "default": ""
     },
+    "textColor": {
+      "type": "string",
+      "default": ""
+    },
     "transcriptUrl": {
       "type": "string",
       "default": ""
