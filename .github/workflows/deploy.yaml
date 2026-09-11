@@ -24,11 +24,12 @@ jobs:
           npm ci
           npm run build
 
+      # WordPress.org is the only place the built plugin is published, so
+      # nothing here generates a zip or attaches one to the GitHub release --
+      # people install from the directory, and GitHub's own auto-generated
+      # source archives are enough for anyone reading the code.
       - name: WordPress Plugin Deploy
-        id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
-        with:
-          generate-zip: true
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
@@ -36,8 +37,3 @@ jobs:
           # finds nothing, and silently ships the release with no banner,
           # icon or screenshots. Ours live in assets/.
           ASSETS_DIR: assets
-
-      - name: Attach zip to GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: ${{ steps.deploy.outputs.zip-path }}
