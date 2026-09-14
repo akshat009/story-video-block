@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Story Video Block
  * Description:       A lightweight video embed block for Gutenberg. Paste a YouTube, Vimeo, Dailymotion, Facebook, Twitch, Wistia, Loom, TikTok, VideoPress, or direct video-file URL and it lazy-loads a click-to-play embed — also supports a testimonial and story-style layout.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Requires at least: 6.8
  * Requires PHP:      7.4
  * Author:            Akshat Saxena

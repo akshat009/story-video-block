@@ -3,8 +3,10 @@
 .gitignore
 .editorconfig
 .distignore
+.husky
 .npmrc
 .eslintrc*
+eslint.config.*
 .prettierrc*
 .stylelintrc*
 .wp-env.json

@@ -4,7 +4,7 @@ Tags:               video, video player, video embed, youtube, vimeo
 Requires at least:  6.8
 Tested up to:       7.1
 Requires PHP:       7.4
-Stable tag:         1.0.1
+Stable tag:         1.0.2
 License:            GPL-2.0-or-later
 License URI:        https://www.gnu.org/licenses/gpl-2.0.html
 Source Code:        https://github.com/akshat009/story-video-block
@@ -116,6 +116,9 @@ No. Nothing loads until a visitor clicks play, at which point the browser reques
 12. Frontend — Video only mode; the video fills the whole card, with no surrounding text or background.
 
 == Changelog ==
+
+= 1.0.2 =
+* Removed development-only files (Husky git hooks and the ESLint config) that were accidentally included in the plugin download. No changes to the block itself.
 
 = 1.0.1 =
 * Trimmed the readme's tag list to the five WordPress.org accepts, so "vimeo" is no longer dropped.
