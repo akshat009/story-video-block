@@ -1,6 +1,6 @@
-=== Story Video Block ===
+=== Story Video Block – Fast Video Player, YouTube Embed & Testimonials for Gutenberg ===
 Contributors:      developerakshat
-Tags:               video, video player, video embed, youtube, vimeo
+Tags:               video block, video player, youtube embed, lazy load video, gutenberg
 Requires at least:  6.8
 Tested up to:       7.1
 Requires PHP:       7.4
@@ -9,26 +9,37 @@ License:            GPL-2.0-or-later
 License URI:        https://www.gnu.org/licenses/gpl-2.0.html
 Source Code:        https://github.com/akshat009/story-video-block
 
-A fast video embed block for Gutenberg — YouTube, Vimeo & more, with a click-to-play embed that only loads when a visitor presses play.
+Fast, lightweight & lazy-load video embed block for Gutenberg — YouTube, Vimeo & self-hosted MP4 with instant click-to-play. Boost PageSpeed & Core Web Vitals.
 
 == Description ==
 
-Story Video Block is a block-editor (Gutenberg) video embed block. It pairs a video with a heading, description, and attribution, so it works just as well for a video testimonial or story-style layout as it does as a standalone video player — the "Video only" layout drops the text entirely for a clean, full-width embed.
+= Video Walkthrough =
 
-Unlike most video blocks, nothing is shipped to visitors just to swap a poster image for a video player: the click-to-play interaction runs on WordPress's native `@wordpress/interactivity` module — no React, no jQuery, no extra framework loaded on the front end.
+Watch the complete walkthrough and see how easy it is to set up and customize the Story Video Block:
 
-= Features =
+https://www.youtube.com/watch?v=Ilo0MwXbpRI
 
+Story Video Block is a high-performance video embed and player block for the WordPress block editor (Gutenberg). It lazy-loads YouTube, Vimeo, Dailymotion, and self-hosted videos with a lightweight poster image (facade), so heavy third-party video players and tracking scripts only load when visitors press play — dramatically boosting your Google PageSpeed scores and Core Web Vitals.
+
+Use it as a clean standalone video player ("Video only" mode), or pair videos with headings, quotes, and author avatars for stunning video testimonials and story-style sections.
+
+Unlike traditional video embed blocks, nothing heavy is shipped to visitors just to swap a poster image for a video player: the click-to-play interaction runs on WordPress's native `@wordpress/interactivity` module — zero React, zero jQuery, and no framework overhead loaded on the front end.
+
+= Key Features =
+
+* **Boost PageSpeed & Core Web Vitals** — Default YouTube/Vimeo embeds load megabytes of JavaScript and trackers on initial page visit. Story Video Block lazy-loads embeds on click, keeping your pages blazing fast.
+* **100% GDPR & Privacy Friendly** — Zero external tracking scripts or cookies are loaded until a visitor clicks play.
 * **One field, auto-detected** — paste a URL from YouTube, Vimeo, Dailymotion, Facebook, Twitch, Wistia, Loom, TikTok, VideoPress, or a self-hosted `.mp4`/`.webm`/`.ogg`/`.mov` file. The provider and video ID are detected automatically.
-* **Poster image** — auto-pulled from YouTube, Dailymotion, and Loom, or upload your own for any provider.
-* **Click-to-load playback** — no video player loads until the visitor clicks play, keeping the page fast.
-* **No React, no jQuery on the front end** — the click-to-play interaction runs on WordPress's native `@wordpress/interactivity` module (a script module, not a classic script), not a framework. Nothing is shipped to visitors just to swap a poster image for a video embed.
+* **Poster image (facade)** — auto-pulled from YouTube, Dailymotion, and Loom, or upload your own custom thumbnail for any provider.
+* **Click-to-load playback** — no video player loads until the visitor clicks play, saving bandwidth and keeping your site speed top-notch.
+* **No React, no jQuery on the front end** — the click-to-play interaction runs on WordPress's native `@wordpress/interactivity` module (a script module, not a classic script), not a framework.
 * **Configurable play button** — 4 built-in icon shapes x 3 color styles, and extendable via WordPress filters if you want to bring your own icon library.
 * **Testimonial mode** — swap the heading/description for a quote, author name, author title, and avatar.
 * **Video only mode** — use it as a standalone video player: drops the heading, description, and testimonial content for a full-width embed, with an optional fixed height for consistent-sized players.
 * **Media position** — video on the left or right of the content.
 * **Card style** — standard, or an "overlapping media" look where the video pokes out above/below the card.
 * **Background & text color controls**, plus CSS custom properties for everything else (padding, gap, radius, shadow, play-button colors, and more) so a theme can restyle the block without editing plugin files.
+* **Full Site Editing (FSE) & Block Theme Ready** — Works out of the box with modern WordPress block themes.
 * **Transcript upload** — attach a PDF/Word/text file for accessibility; renders as a labeled download link.
 * **Developer filters** — `story_video_block_css_vars` and `story_video_block_content` let a theme or must-use plugin adjust the block's frontend CSS/markup from `functions.php`.
 * **Accessible by default** — labeled controls, `aria-label`s on interactive elements, decorative images marked as such, and visible "opens in a new tab" hints for screen readers.
@@ -99,6 +110,18 @@ Anything not covered by a variable can still be styled with plain CSS targeting 
 = Does this block track visitors or call any external service on page load? =
 
 No. Nothing loads until a visitor clicks play, at which point the browser requests the embed directly from the video provider (e.g. YouTube) the same way any embedded video would.
+
+= Is this block GDPR compliant for YouTube and Vimeo? =
+
+Yes. Because it uses a poster image (facade) and does not embed the third-party iframe or execute external scripts until a visitor clicks the play button, no third-party tracking cookies or scripts are loaded when the page initially renders.
+
+= Does using this block improve Google PageSpeed Insights & Core Web Vitals? =
+
+Yes, significantly. Standard video embeds load massive JavaScript files, stylesheets, and tracking requests upfront, hurting metrics like Largest Contentful Paint (LCP) and Total Blocking Time (TBT). By lazy-loading the real player on click, your pages load much faster.
+
+= Does it work with Full Site Editing (FSE) and Block Themes? =
+
+Yes. Story Video Block is built strictly with modern Gutenberg standards and works seamlessly in post/page content, query loops, templates, and template parts across classic and block themes.
 
 == Screenshots ==
 

@@ -5,6 +5,8 @@
 
 A custom [WordPress Gutenberg block](https://developer.wordpress.org/block-editor/) for pairing a video (YouTube, Vimeo, Dailymotion, and more) with a heading, description, and attribution — built for testimonial and story-style sections. Switch on "Video only" mode and it works just as well as a standalone video player, with no text at all.
 
+[![Watch Story Video Block Walkthrough](https://img.youtube.com/vi/Ilo0MwXbpRI/maxresdefault.jpg)](https://www.youtube.com/watch?v=Ilo0MwXbpRI)
+
 **[Try it live in your browser](https://playground.wordpress.net/?plugin=story-video-block&url=/wp-admin/post-new.php%3Fpost_type%3Dpage)** — no install required, via WordPress Playground.
 
 ## Features
