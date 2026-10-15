@@ -70,6 +70,14 @@ npm run test:unit
 
 Play button icons are exposed through WordPress hooks, so you can add icons from whichever library you prefer without touching this plugin's code — see the doc comment at the top of [`icons.js`](src/story-video-block/icons.js) for examples using Font Awesome, Bootstrap Icons, Feather Icons, and Material Symbols.
 
+## Other Plugins by Me
+
+Check out my other free plugins on the WordPress Plugin Directory:
+
+* **[Flash Sale Stock Guard for WooCommerce](https://wordpress.org/plugins/flash-sale-stock-guard-for-woocommerce/)** — Stop overselling during limited drops and flash sales by reserving stock at add-to-cart.
+* **[Quovex Blocks](https://wordpress.org/plugins/quovex-blocks/)** — Modern Gutenberg blocks: Filterable Query Grid, Post Carousel, Content Showcase & Notification Banner.
+* **[Multimage – Image Uploads for WPForms](https://wordpress.org/plugins/multimage-image-uploads-for-wpforms/)** — Multiple image uploads for WPForms Lite with instant AJAX uploads.
+
 ## License
 
 [GPL-2.0-or-later](https://www.gnu.org/licenses/gpl-2.0.html)

@@ -9,7 +9,7 @@ License:            GPL-2.0-or-later
 License URI:        https://www.gnu.org/licenses/gpl-2.0.html
 Source Code:        https://github.com/akshat009/story-video-block
 
-Fast, lightweight & lazy-load video embed block for Gutenberg — YouTube, Vimeo & self-hosted MP4 with instant click-to-play. Boost PageSpeed & Core Web Vitals.
+Fast, lazy-load video embed block for Gutenberg — YouTube, Vimeo & MP4 with instant click-to-play. Boost PageSpeed & Core Web Vitals.
 
 == Description ==
 
@@ -43,6 +43,14 @@ Unlike traditional video embed blocks, nothing heavy is shipped to visitors just
 * **Transcript upload** — attach a PDF/Word/text file for accessibility; renders as a labeled download link.
 * **Developer filters** — `story_video_block_css_vars` and `story_video_block_content` let a theme or must-use plugin adjust the block's frontend CSS/markup from `functions.php`.
 * **Accessible by default** — labeled controls, `aria-label`s on interactive elements, decorative images marked as such, and visible "opens in a new tab" hints for screen readers.
+
+= Check Out My Other Plugins =
+
+If you find Story Video Block helpful, feel free to check out my other free WordPress plugins:
+
+* [Flash Sale Stock Guard for WooCommerce](https://wordpress.org/plugins/flash-sale-stock-guard-for-woocommerce/) — Prevent overselling during limited drops and flash sales by reserving stock at add-to-cart.
+* [Quovex Blocks](https://wordpress.org/plugins/quovex-blocks/) — Modern Gutenberg blocks: filterable Query Grid, Post Carousel, Magazine Content Showcase & Notification Banner.
+* [Multimage – Image Uploads for WPForms](https://wordpress.org/plugins/multimage-image-uploads-for-wpforms/) — Multiple image uploads for WPForms Lite with instant AJAX uploads.
 
 == Installation ==
 
